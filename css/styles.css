@@ -16,7 +16,7 @@ body{margin:0;font-family:Montserrat,system-ui,Arial,sans-serif;background:var(-
 /* Header */
 .site-header{position:sticky;top:0;background:linear-gradient(180deg,rgba(0,0,0,.6),transparent);backdrop-filter:blur(2px);z-index:40;border-bottom:1px solid rgba(200,200,200,.04)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem}
-.brand{font-family:Anton,impact,serif;font-size:1.2rem;letter-spacing:2px;color:var(--fossil-bone);text-decoration:none}
+.brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:2px;color:var(--fossil-bone);text-decoration:none}
 .site-nav{display:flex;gap:1rem}
 .site-nav a{color:var(--steel-grey);text-decoration:none;padding:.25rem .25rem}
 .site-nav a:hover{color:var(--blood-red);text-decoration:underline}
@@ -25,7 +25,7 @@ body{margin:0;font-family:Montserrat,system-ui,Arial,sans-serif;background:var(-
 /* Hero */
 .hero{padding:4rem 0;background-image:radial-gradient(circle at 20% 10%, rgba(255,199,44,.03), transparent 10%),linear-gradient(180deg, rgba(255,0,0,.02), rgba(0,0,0,.6));background-blend-mode:overlay}
 .hero-inner{padding:3rem 1rem;text-align:center}
-.hero-title{font-family:Anton,impact,serif;font-size:2.25rem;margin:.25rem 0;color:var(--fossil-bone);text-transform:uppercase;letter-spacing:2px}
+.hero-title{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;font-size:2.25rem;margin:.25rem 0;color:var(--fossil-bone);text-transform:uppercase;letter-spacing:2px}
 .hero-slogan{font-weight:600;color:var(--crude-brown);margin:.5rem 0}
 
 .btn{display:inline-block;padding:.6rem 1rem;border-radius:4px;background:transparent;color:var(--fossil-bone);border:1px solid rgba(200,200,200,.12);cursor:pointer}
@@ -35,7 +35,7 @@ body{margin:0;font-family:Montserrat,system-ui,Arial,sans-serif;background:var(-
 
 /* Manifesto */
 .fossil-section{padding:2rem 0;border-top:1px solid rgba(200,200,200,.03);border-bottom:1px solid rgba(200,200,200,.03)}
-.section-title{font-family:Anton,impact,serif;text-transform:uppercase;margin:0 0 .5rem;color:var(--fossil-bone)}
+.section-title{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;text-transform:uppercase;margin:0 0 .5rem;color:var(--fossil-bone)}
 .lead{font-weight:600;color:var(--steel-grey);margin:0 0 1rem}
 .manifesto-copy{max-width:70ch}
 
