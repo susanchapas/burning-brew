@@ -27,6 +27,19 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
+  // Highlight active nav link (works with relative URLs)
+  const current = (window.location.pathname.split('/').pop() || 'index.html');
+  document.querySelectorAll('.site-nav a, .footer-nav a').forEach(a => {
+    const href = a.getAttribute('href');
+    if(!href) return;
+    // Handle root/home links
+    if((current === '' || current === 'index.html') && (href === 'index.html' || href === '/')){
+      a.classList.add('active');
+    } else if(href.endsWith(current)) {
+      a.classList.add('active');
+    }
+  });
+
   // Parallax on hero background (reduced motion aware)
   const preferReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hero = document.querySelector('.hero');
