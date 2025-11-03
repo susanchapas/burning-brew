@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="espresso shot icon">
+  <rect width="400" height="300" fill="#121214"/>
+  <g transform="translate(140,60)">
+    <rect x="0" y="0" width="120" height="160" rx="10" fill="#1f1f22" stroke="#2a2a2f"/>
+    <rect x="18" y="35" width="84" height="70" fill="#3a1e12"/>
+    <rect x="18" y="100" width="84" height="8" fill="#c8c8c8"/>
+  </g>
+</svg>

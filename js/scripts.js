@@ -26,4 +26,30 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
   }
+
+  // Parallax on hero background (reduced motion aware)
+  const preferReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hero = document.querySelector('.hero');
+  if(hero && !preferReduced){
+    hero.addEventListener('mousemove', (e)=>{
+      const rect = hero.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      hero.style.backgroundPosition = `${50 + x*4}% ${50 + y*4}%`;
+    });
+  }
+
+  // Reveal on scroll for product cards
+  const observer = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15}) : null;
+
+  if(observer){
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  }
 });

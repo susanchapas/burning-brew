@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="dark roast icon">
+  <rect width="400" height="300" fill="#141416"/>
+  <g transform="translate(140,50)">
+    <rect x="0" y="0" width="120" height="180" rx="8" fill="#232326" stroke="#35353a"/>
+    <rect x="15" y="25" width="90" height="18" fill="#990000"/>
+    <rect x="15" y="60" width="90" height="60" fill="#1a1a1c" stroke="#2a2a2f"/>
+    <circle cx="60" cy="135" r="22" fill="#4a7c7c"/>
+  </g>
+</svg>
