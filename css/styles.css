@@ -53,7 +53,11 @@ body{margin:0;font-family:Montserrat,system-ui,Arial,sans-serif;background:var(-
 
 /* Footer */
 .site-footer{background:linear-gradient(180deg,rgba(0,0,0,.6),var(--void-black));color:var(--fossil-bone);margin-top:3rem}
-.caution-stripe{height:6px;background:linear-gradient(45deg,var(--void-black) 25%,var(--hazard-yellow) 25%,var(--hazard-yellow) 50%,var(--void-black) 50%);background-size:20px 20px}
+.caution-stripe{
+  /* Removed hazard stripe per request — keep element for structure but hide visually */
+  display:none;
+  height:0; /* fallback */
+}
 .footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;padding:1.25rem}
 .bottom-bar{padding:.75rem;text-align:center;border-top:1px solid rgba(255,255,255,.02);font-size:.9rem;color:var(--steel-grey)}
 .newsletter input{padding:.5rem;margin-right:.5rem;border-radius:4px;border:1px solid rgba(255,255,255,.06);background:transparent;color:var(--fossil-bone)}
