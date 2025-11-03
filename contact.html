@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Burning Brew</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-contact">
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="/">BURNING BREW</a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open navigation">☰</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="/products.html">Products</a>
+        <a href="/vision.html">Vision</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-hero container">
+      <h1 class="section-title">Signal the Outpost</h1>
+      <p class="muted">We respond between dust storms.</p>
+    </section>
+
+    <section class="contact-form container">
+      <form action="#" onsubmit="event.preventDefault(); alert('Message sent — we will reply from the pit.');">
+        <label for="alias">Alias</label>
+        <input id="alias" name="name" placeholder="Alias" required />
+
+        <label for="email">Transmission ID</label>
+        <input id="email" type="email" name="email" placeholder="Transmission ID" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Speak your heresy." rows="6" required></textarea>
+
+        <button class="btn crude-button" type="submit">Send the Signal</button>
+      </form>
+    </section>
+
+    <section class="newsletter container">
+      <h3 class="section-title">Join the Fossil Order</h3>
+      <p class="muted">Receive dispatches from the Grind Frontier.</p>
+      <form onsubmit="event.preventDefault(); alert('Subscribed — Fossil Order confirmed.');">
+        <input type="email" placeholder="Transmission ID" required />
+        <button class="btn small" type="submit">Subscribe</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="caution-stripe"></div>
+    <div class="footer-inner container">
+      <div class="col">
+        <div class="logo">BURNING BREW</div>
+        <p class="tagline">From the Earth to the Grind.</p>
+      </div>
+      <div class="col">
+        <nav class="footer-nav">
+          <a href="/">Home</a>
+          <a href="/products.html">Products</a>
+          <a href="/vision.html">Vision</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="col">
+        <div class="social">IG • Threads • TikTok</div>
+      </div>
+    </div>
+    <div class="bottom-bar">© 2025 Burning Brew. Powered by Prehistoric Decay.</div>
+  </footer>
+</body>
+</html>

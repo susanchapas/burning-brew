@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Products — Burning Brew</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/scripts.js"></script>
+  <meta name="description" content="The Grind — raw, technical coffee offerings from Burning Brew." />
+</head>
+<body class="page-products">
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="/">BURNING BREW</a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open navigation">☰</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="/products.html">Products</a>
+        <a href="/vision.html">Vision</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro container">
+      <h1 class="section-title">The Grind.</h1>
+      <p class="muted">Coffee reimagined as crude energy.</p>
+    </section>
+
+    <section class="product-grid container">
+      <article id="dark" class="product-card">
+        <h2>High-Octane Dark</h2>
+        <p class="muted">A High-Octane Black. Roast profile: Molten, bitter, commanding.</p>
+        <ul class="specs">
+          <li>Origin: Deep Strata</li>
+          <li>Grind: Coarse / Whole Bean</li>
+          <li>Taste: Charcoal, Smoke, Bittersweet Amber</li>
+        </ul>
+        <div class="actions">
+          <button class="btn crude-button">Burn Deeper</button>
+          <button class="btn">Plug into the Crude</button>
+        </div>
+      </article>
+
+      <article id="single-origin" class="product-card">
+        <h2>Single Origin — Fault Line</h2>
+        <p class="muted">Cruelly extracted from cracked volcanic soils.</p>
+        <ul class="specs">
+          <li>Origin: Guatemalan Fault Line</li>
+          <li>Grind: Medium</li>
+          <li>Taste: Earth, Smoke, Late-Bloom Spice</li>
+        </ul>
+        <div class="actions">
+          <button class="btn crude-button">Burn Deeper</button>
+          <button class="btn">Plug into the Crude</button>
+        </div>
+      </article>
+
+      <article id="espresso" class="product-card">
+        <h2>The Crude Shot</h2>
+        <p class="muted">Unfiltered. Unapologetic. A molten extraction.</p>
+        <ul class="specs">
+          <li>Origin: Refined Blend</li>
+          <li>Grind: Fine</li>
+          <li>Taste: Concentrated tar, salted caramel</li>
+        </ul>
+        <div class="actions">
+          <button class="btn crude-button">Burn Deeper</button>
+          <button class="btn">Plug into the Crude</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="subscribe container" id="subscribe">
+      <h3 class="section-title">Fuel Rations</h3>
+      <p class="muted">Recurring shipments to keep the tank full.</p>
+      <button class="btn crude-button">Keep the Tank Full</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="caution-stripe"></div>
+    <div class="footer-inner container">
+      <div class="col">
+        <div class="logo">BURNING BREW</div>
+        <p class="tagline">From the Earth to the Grind.</p>
+      </div>
+      <div class="col">
+        <nav class="footer-nav">
+          <a href="/">Home</a>
+          <a href="/products.html">Products</a>
+          <a href="/vision.html">Vision</a>
+          <a href="/contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="col">
+        <form class="newsletter" action="#" onsubmit="event.preventDefault(); alert('Subscribed — welcome to the Fossil Order.');">
+          <input type="email" placeholder="Transmission ID" aria-label="Email" required />
+          <button class="btn small" type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="bottom-bar">© 2025 Burning Brew. Powered by Prehistoric Decay.</div>
+  </footer>
+</body>
+</html>
