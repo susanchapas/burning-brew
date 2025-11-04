@@ -32,30 +32,59 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 
-  // Parallax on hero background (reduced motion aware)
+  // Parallax on hero using transform on .hero-inner for smoother hardware-accelerated motion
   const preferReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hero = document.querySelector('.hero');
-  if(hero && !preferReduced){
+  const heroInner = document.querySelector('.hero-inner');
+  if(hero && heroInner && !preferReduced){
+    // Slight smoothing when pointer leaves
     hero.addEventListener('mousemove', (e)=>{
       const rect = hero.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      hero.style.backgroundPosition = `${50 + x*4}% ${50 + y*4}%`;
+      const tx = x * 8; // px
+      const ty = y * 6; // px
+      heroInner.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+    });
+    hero.addEventListener('mouseleave', ()=>{
+      heroInner.style.transform = '';
     });
   }
 
   // Reveal on scroll for product cards
+  // Reveal on scroll for product cards with staggered entrance for a smoother flow
   const observer = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
-        entry.target.classList.add('in');
-        observer.unobserve(entry.target);
+        const el = entry.target;
+        // apply a small stagger based on data index if present
+        const idx = parseInt(el.dataset.rIndex || '0', 10);
+        el.style.transitionDelay = (idx % 6) * 80 + 'ms';
+        el.classList.add('in');
+        observer.unobserve(el);
       }
     });
   }, {threshold: 0.15}) : null;
 
   if(observer){
-    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    // assign an index to stagger reveals in sequence
+    document.querySelectorAll('.reveal').forEach((el, i)=>{
+      el.dataset.rIndex = i;
+      observer.observe(el);
+    });
+  }
+
+  // Make header feel anchored: add a scrolled class when the page scrolls
+  const header = document.querySelector('.site-header');
+  if(header){
+    let lastScroll = window.scrollY;
+    const onScroll = ()=>{
+      const y = window.scrollY;
+      if(y > 16) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+      lastScroll = y;
+    };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
   }
 
   // Hero video crossfade controller

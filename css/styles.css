@@ -6,6 +6,10 @@
   --oxidized-teal: #4a7c7c;
   --steel-grey: #c8c8c8;
   --hazard-yellow: #ffc72c;
+  /* motion system */
+  --motion-time: 360ms;
+  --motion-ease: cubic-bezier(.2,.9,.25,1);
+  --reveal-stagger: 80ms;
 }
 /* Base */
 *{box-sizing:border-box}
@@ -21,6 +25,7 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 
 /* Header */
 .site-header{position:sticky;top:0;background:linear-gradient(180deg,rgba(0,0,0,.6),transparent);backdrop-filter:blur(2px);z-index:40;border-bottom:1px solid rgba(200,200,200,.04)}
+.site-header.scrolled{background:linear-gradient(180deg,rgba(0,0,0,.75),rgba(0,0,0,.5));box-shadow:0 6px 18px rgba(0,0,0,.45)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem}
 .brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:500;font-size:1.3rem;letter-spacing:1px;color:var(--fossil-bone);text-decoration:none}
 .site-nav{display:flex;gap:1rem}
@@ -147,8 +152,13 @@ img{max-width:100%;height:auto;display:block}
 .btn, .btn.small, button{ text-decoration: none; }
 
 /* Reveal animation */
-.reveal{opacity:0;transform:translateY(10px);transition:opacity .35s ease, transform .35s ease}
+.reveal{opacity:0;transform:translate3d(0,10px,0);transition:opacity var(--motion-time) var(--motion-ease), transform var(--motion-time) var(--motion-ease);will-change:opacity,transform}
 .reveal.in{opacity:1;transform:none}
+
+/* Smooth scrolling when user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference){
+  html{scroll-behavior:smooth}
+}
 
 /* Hero video styling */
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;opacity:0;transition:opacity .9s ease}
