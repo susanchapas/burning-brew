@@ -22,8 +22,8 @@ a:focus{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:500;font-size:1.3rem;letter-spacing:1px;color:var(--fossil-bone);text-decoration:none}
 .site-nav{display:flex;gap:1rem}
 .site-nav a{color:var(--steel-grey);text-decoration:none;padding:.25rem .25rem}
-.site-nav a.active{color:var(--hazard-yellow);text-decoration:underline}
-.site-nav a:hover{color:var(--blood-red);text-decoration:underline}
+.site-nav a.active{color:var(--hazard-yellow);}
+.site-nav a:hover{color:var(--blood-red);}
 .nav-toggle{display:none;background:none;border:0;color:var(--fossil-bone);font-size:1.25rem}
 
 /* Hero */
@@ -95,6 +95,9 @@ img{max-width:100%;height:auto;display:block}
 .crude-button::after{content:"";position:absolute;left:50%;top:-100%;width:8px;height:140%;background:var(--blood-red);filter:blur(0.5px);transform:translateX(-50%);opacity:.35}
 .crude-button:hover::after{animation:drip 1.4s ease forwards}
 @keyframes drip{0%{top:-100%;opacity:.35}60%{top:60%;opacity:.5}100%{top:110%;opacity:0}}
+
+/* Ensure buttons (and button-like elements) never show underlines */
+.btn, .btn.small, button{ text-decoration: none; }
 
 /* Reveal animation */
 .reveal{opacity:0;transform:translateY(10px);transition:opacity .35s ease, transform .35s ease}
