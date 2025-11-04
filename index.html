@@ -26,8 +26,12 @@
   <main>
     <section class="hero fossil-hero">
         <!-- Hero background video (autoplay, muted, loop). Filename contains spaces so use URL-encoded path. -->
-        <video id="hero-video" class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-desert.svg">
-          <source src="assets/coffee%20beans%20video.mp4" type="video/mp4">
+        <video id="hero-video-a" class="hero-video hero-video--a" autoplay muted playsinline loop preload="auto" poster="assets/hero-desert.svg">
+          <source src="assets/coffee beans video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <video id="hero-video-b" class="hero-video hero-video--b" autoplay muted playsinline loop preload="auto" poster="assets/hero-desert.svg" aria-hidden="true">
+          <source src="assets/coffee beans video.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         <div class="hero-inner container">
