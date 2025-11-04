@@ -82,7 +82,22 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 
 @media(max-width:699px){
   .nav-toggle{display:block}
+  /* mobile: hide by default, show as full-width dropdown under header when opened */
   .site-nav{display:none}
+  .site-header{position:relative;z-index:60}
+  .site-nav{
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    background:linear-gradient(180deg, rgba(10,10,10,0.95), rgba(20,20,20,0.95));
+    padding:0.75rem 1rem;
+    display:none; /* still controlled by JS */
+    flex-direction:column;
+    gap:0.5rem;
+    border-top:1px solid rgba(255,255,255,0.03);
+  }
+  .site-nav a{padding:.75rem 0}
 }
 
 /* Small visual flourishes */
