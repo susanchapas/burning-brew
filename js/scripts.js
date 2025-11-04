@@ -1,15 +1,7 @@
 // Basic site JS: slogan rotation and nav toggle. Lightweight and accessible.
 document.addEventListener('DOMContentLoaded', function(){
-  // Slogan rotation for hero
-  const slogans = ['Drill Your Day.','Fuel for the Reckless.','From the Earth to the Grind.'];
-  let i = 0;
-  const el = document.getElementById('hero-slogan');
-  if(el){
-    setInterval(()=>{
-      i = (i+1) % slogans.length;
-      el.textContent = slogans[i];
-    }, 3500);
-  }
+  // Hero slogan rotation removed: user requested the flashing text be removed.
+  // The hero now shows a single static headline; no rotating/flashing content.
 
   // Mobile nav toggle
   const toggle = document.getElementById('nav-toggle');
