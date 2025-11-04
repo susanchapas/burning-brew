@@ -65,4 +65,95 @@ document.addEventListener('DOMContentLoaded', function(){
   if(observer){
     document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   }
+
+  // Hero video crossfade controller
+  (function heroCrossfade(){
+    const a = document.getElementById('hero-video-a');
+    const b = document.getElementById('hero-video-b');
+    if(!a || !b) return; // nothing to do
+
+    // Respect reduced motion - keep a single video visible
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce){
+      a.style.opacity = '1';
+      b.style.opacity = '0';
+      return;
+    }
+
+    // Crossfade parameters (seconds)
+    const FADE_TIME = 0.9;
+    const PRELOAD_BEFORE_END = 0.9; // start the standby this far before the active ends
+
+    // Ensure videos have smooth CSS transition for opacity (defensive)
+    [a,b].forEach(v=>{
+      v.style.transition = `opacity ${FADE_TIME}s linear`;
+      v.style.willChange = 'opacity';
+      // Make sure initial inline opacity is set so transitions run predictably
+      if(!v.style.opacity) v.style.opacity = '0';
+    });
+
+    let active = a;
+    let standby = b;
+    let isSwitching = false;
+
+    // Helper to start playing a video and ignore play() rejection (autoplay policy)
+    function safePlay(vid){ vid.play && vid.play().catch(()=>{}); }
+    function safePause(vid){ try{ vid.pause(); }catch(e){} }
+
+    // Initialize states once metadata is loaded
+    function initOnceReady(vid, cb){
+      if(isFinite(vid.duration) && vid.duration > 0) return cb();
+      const handler = ()=>{ vid.removeEventListener('loadedmetadata', handler); cb(); };
+      vid.addEventListener('loadedmetadata', handler);
+    }
+
+    initOnceReady(active, ()=>{
+      // show active, hide standby
+      active.style.opacity = '1';
+      standby.style.opacity = '0';
+      // ensure only active is playing
+      safePlay(active);
+      safePause(standby);
+    });
+
+    // Main tick using rAF to detect proximity to end of clip
+    let rafId;
+    function tick(){
+      if(document.hidden){ rafId = requestAnimationFrame(tick); return; }
+      if(!isSwitching && isFinite(active.duration) && active.duration > 0){
+        const remaining = active.duration - active.currentTime;
+        if(remaining <= PRELOAD_BEFORE_END){
+          // Begin switch
+          isSwitching = true;
+          try{
+            // start standby slightly into the file to avoid potential black frame at 0s
+            standby.currentTime = Math.min(0.05, standby.duration || 0);
+          }catch(e){}
+          safePlay(standby);
+
+          // ensure standby is brought to front by making it opaque
+          requestAnimationFrame(()=>{
+            standby.style.opacity = '1';
+            active.style.opacity = '0';
+          });
+
+          // After fade completes, pause the old active and reset it for next cycle
+          setTimeout(()=>{
+            try{ safePause(active); active.currentTime = 0; }catch(e){}
+            // swap references
+            const tmp = active; active = standby; standby = tmp;
+            isSwitching = false;
+          }, (FADE_TIME * 1000) + 60);
+        }
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+    tick();
+
+    // Pause playback when page hidden; resume the current active when visible
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden){ safePause(a); safePause(b); }
+      else safePlay(active);
+    });
+  })();
 });
