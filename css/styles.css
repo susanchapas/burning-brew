@@ -612,6 +612,18 @@ img{max-width:100%;height:auto;display:block}
   html, body { overflow-x: hidden; }
   .hero-inner { transform: none !important; }
 
+  /* Reduce vision/contact specific hero padding on small screens so
+     content isn't pushed off-center or cut off. These heroes had large
+     desktop paddings (6rem) which are too big for phones. */
+  .vision-hero, .contact-hero, .fossil-hero {
+    padding: 2.5rem 0;
+    min-height: 56vh;
+  }
+  .vision-hero .hero-inner, .contact-hero .hero-inner, .fossil-hero .hero-inner {
+    max-width: 92%;
+    padding: 0 0.5rem;
+  }
+
   /* manifesto and long copy should not be constrained by a wide line-length */
   .manifesto-copy{max-width:none;padding-right:0}
 
