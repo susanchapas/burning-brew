@@ -1,11 +1,13 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "alpha-value-notation": "number",
-    "color-function-notation": "legacy",
-    "no-descending-specificity": null,
-    "declaration-block-single-line-max-declarations": null,
-    "rule-empty-line-before": null,
-    "no-duplicate-selectors": null
+    "color-function-alias-notation": "legacy",      
+    "color-function-notation": "legacy",            
+    "alpha-value-notation": "number",               
+    "media-feature-range-notation": "prefix",       
+    "color-hex-length": "either",                    
+    "selector-class-pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:__(?:[a-z0-9]+(?:-[a-z0-9]+)*))?(?:--[a-z0-9]+(?:-[a-z0-9]+)*)?$",
+    "comment-empty-line-before": ["always", { "except": ["first-nested"], "ignore": ["stylelint-commands"] }],
+    "at-rule-empty-line-before": ["always", { "except": ["first-nested","after-same-name"], "ignore": ["blockless-group","after-comment"] }]
   }
 }
