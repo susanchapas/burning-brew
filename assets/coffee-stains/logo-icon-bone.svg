@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
-  <!-- Simple coffee cup mark in bone color -->
-  <rect width="64" height="64" fill="none"/>
-  <path d="M46 20h-1a11 11 0 0 0-22 0h-1a3 3 0 0 0-3 3v6a12 12 0 0 0 12 12h10a12 12 0 0 0 12-12v-6a3 3 0 0 0-3-3z" fill="#f0e9d6"/>
-  <path d="M44 28a4 4 0 1 0 0-8" fill="#f0e9d6"/>
-  <rect x="14" y="36" width="36" height="4" rx="2" fill="#f0e9d6" opacity="0.9"/>
-</svg>
