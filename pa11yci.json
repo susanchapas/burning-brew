@@ -1,0 +1,13 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "wait": 500
+  },
+  "urls": [
+    "https://susanchapas.github.io/burning-brew/index.html",
+    "https://susanchapas.github.io/burning-brew/products.html",
+    "https://susanchapas.github.io/burning-brew/vision.html",
+    "https://susanchapas.github.io/burning-brew/contact.html"
+  ]
+}
