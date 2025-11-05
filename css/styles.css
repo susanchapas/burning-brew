@@ -314,10 +314,10 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
   .site-footer .newsletter .join-order{width:100%;display:block}
 }
 
-/* Footer logo mark (small SVG) positioned to the left of the wordmark */
-.site-footer .logo{display:flex;align-items:flex-start;gap:.6rem}
-.site-footer .footer-logo{width:48px;max-width:48px;height:auto;display:block;flex:0 0 auto}
-.site-footer .logo span{letter-spacing:1px;display:inline-block;margin-top:6px}
+/* Footer logo mark: place SVG inline with the wordmark and increase size on desktop */
+.site-footer .logo{display:flex;align-items:center;gap:0}
+.site-footer .footer-logo{width:80px;max-width:80px;height:auto;display:block;flex:0 0 auto;position:static;margin-right:0}
+.site-footer .logo span{letter-spacing:1px;display:inline-block;margin:0;padding:0}
 
 /* small screens: slightly smaller logo so it doesn't dominate the column */
 @media(max-width:699px){
@@ -329,11 +329,12 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
    - absolutely position the existing image so it sits outside the normal column flow
    - add left padding to the inner container so columns don't overlap the logo
    - collapse back to normal flow on small screens */
-.site-footer .footer-logo{position:absolute;left:20px;top:18px;width:64px;z-index:260}
-.site-footer .footer-inner{padding-left:116px}
+.site-footer .footer-logo{position:static;left:auto;top:auto;width:80px;max-width:80px;z-index:auto}
+.site-footer .footer-inner{padding-left:1.25rem}
 @media(max-width:899px){
-  .site-footer .footer-logo{left:14px;top:14px;width:56px}
-  .site-footer .footer-inner{padding-left:92px}
+  /* slightly smaller logo on medium screens; keep inline flow */
+  .site-footer .footer-logo{position:static;width:64px;max-width:64px}
+  .site-footer .footer-inner{padding-left:1.25rem}
 }
 @media(max-width:699px){
   .site-footer .footer-logo{position:static;width:36px;margin-bottom:0}
@@ -404,8 +405,8 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
 
 @media(max-width:699px){
   .nav-toggle{display:block}
-  /* mobile: hide by default, show as full-width dropdown under header when opened */
-  .site-nav{display:none}
+  /* mobile: collapsed nav with smooth transition; JS toggles .site-header.open to open it */
+  .site-nav{display:flex}
   .site-header{position:relative;z-index:60}
   .site-nav{
     position:absolute;
@@ -414,12 +415,25 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
     top:100%;
     background:linear-gradient(180deg, rgba(10,10,10,0.95), rgba(20,20,20,0.95));
     padding:0.75rem 1rem;
-    display:none; /* still controlled by JS */
+    /* collapsed state */
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(-6px);
+    display:flex;
     flex-direction:column;
     gap:0.5rem;
     border-top:1px solid rgba(255,255,255,0.03);
     /* ensure the dropdown sits above hero overlays on pages with hero layers */
     z-index:75;
+    pointer-events:none;
+    transition: max-height .34s var(--motion-ease), opacity .28s var(--motion-ease), transform .28s var(--motion-ease);
+  }
+  /* open state */
+  .site-header.open .site-nav{
+    max-height:420px; /* roomy enough for nav links */
+    opacity:1;
+    transform:none;
     pointer-events:auto;
   }
   .site-nav a{padding:.75rem 0;position:relative;z-index:80}
@@ -451,9 +465,9 @@ img{max-width:100%;height:auto;display:block}
 .page-root .btn.small{border-color:rgba(74,124,124,.12);color:var(--fossil-bone)}
 .page-root .btn.small:hover{background:linear-gradient(90deg,var(--oxidized-teal),var(--crude-brown));color:#fff;border-color:transparent}
 
-/* Subscribe/hero CTA on homepage gets a teal-brown gradient for variety */
-.page-root .crude-button{background:linear-gradient(90deg,var(--blood-red),var(--crude-brown));}
-.page-root .crude-button:hover{background:linear-gradient(90deg,var(--oxidized-teal),var(--crude-brown));}
+/* Subscribe/hero CTA on homepage: use the red-brown default but switch to black on hover for legibility */
+.page-root .crude-button{background:linear-gradient(90deg,var(--blood-red),var(--crude-brown));color:#fff}
+.page-root .crude-button:hover{background:var(--void-black);color:#fff;border-color:transparent;filter:none}
 
 /* Teaser cards get a subtle teal accent on the left to tie the palette together */
 .page-root .teaser-grid .card{border-left:4px solid transparent}
@@ -483,8 +497,9 @@ img{max-width:100%;height:auto;display:block}
   html{scroll-behavior:smooth}
 }
 
+.-- Hero video styling */
 /* Hero video styling */
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;opacity:0;transition:opacity .9s ease}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;opacity:0;transition:opacity 2.4s var(--motion-ease)}
 .hero-video--a{opacity:1}
 .hero-video--vision.hero-video--a{opacity:.42;filter:grayscale(.08) contrast(1.08) brightness(1.08)}
 .hero-video--contact.hero-video--a{opacity:.82;filter:grayscale(.04) contrast(1.07) brightness(1.1)}
@@ -560,4 +575,7 @@ img{max-width:100%;height:auto;display:block}
   transform:translateY(1px);
   box-shadow:0 8px 18px rgba(0,0,0,.38);
 }
+
+/* Ensure header stays sticky on all viewports and sits above content */
+.site-header{position:sticky !important;top:0;z-index:9999}
 

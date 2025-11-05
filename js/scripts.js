@@ -7,14 +7,33 @@ document.addEventListener('DOMContentLoaded', function(){
   const toggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('site-nav');
   if(toggle && nav){
+    // Use class-based toggling so we can animate via CSS instead of inline styles
+    const headerEl = document.querySelector('.site-header');
     toggle.addEventListener('click', ()=>{
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!expanded));
-      if(nav.style.display === 'flex'){
-        nav.style.display = '';
-      } else {
-        nav.style.display = 'flex';
-        nav.style.flexDirection = 'column';
+      if(headerEl){
+        headerEl.classList.toggle('open');
+      }
+    });
+
+    // Close the mobile nav when any nav link is clicked (good mobile UX)
+    nav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', ()=>{
+        if(headerEl && headerEl.classList.contains('open')){
+          headerEl.classList.remove('open');
+          toggle.setAttribute('aria-expanded','false');
+        }
+      });
+    });
+
+    // If the window is resized to desktop size, ensure the mobile open state is removed
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth >= 700){
+        if(headerEl && headerEl.classList.contains('open')){
+          headerEl.classList.remove('open');
+          toggle.setAttribute('aria-expanded','false');
+        }
       }
     });
   }
