@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Checkout Flow — Burning Brew</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Redirecting to the checkout experience for Burning Brew.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="container" style="padding:3rem 1rem;text-align:center;color:#f0e9d6;">
+    <h1 style="font-family:Montserrat,system-ui,Arial,sans-serif">Redirecting to Checkout…</h1>
+    <p style="margin-top:1rem;color:rgba(240,233,214,0.85)">If you are not redirected automatically, <a href="checkout.html">click here to continue to checkout</a>.</p>
+  </main>
+  <script>
+    // Simple redirect to the actual checkout page used by the site.
+    // Preserve any product query param if present.
+    (function(){
+      const params = window.location.search;
+      try{ window.location.replace('checkout.html' + params); }catch(e){ window.location.href = 'checkout.html' + params; }
+    })();
+  </script>
+</body>
+</html>

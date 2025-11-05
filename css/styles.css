@@ -52,6 +52,18 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !important; border-bottom-color: var(--blood-red) !important }
 .nav-toggle{display:none;background:none;border:0;color:var(--fossil-bone);font-size:1.25rem}
 
+/* Cart button in header */
+.cart-btn{display:inline-flex;align-items:center;justify-content:center;margin:0 .5rem 0 .5rem;padding:0;border:0;background:none;color:var(--fossil-bone);text-decoration:none}
+.cart-btn img{height:28px;width:auto;display:block}
+
+@media(max-width:699px){
+  /* ensure cart remains outside the collapsing nav; place between brand and toggle in markup */
+  .cart-btn{order:1;flex:0 0 auto}
+  .brand{order:0}
+  .nav-toggle{order:2}
+  .site-nav{order:3}
+}
+
 .hero{
   /* Hero must fill the viewport and center content both axes */
   height:100vh;
