@@ -6,7 +6,7 @@
   <title>Checkout | Burning Brew — Feed the Machine</title>
   <meta name="description" content="Complete your extraction. Power the rebellion with Burning Brew.">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#1a1a1c;
@@ -20,8 +20,11 @@
     body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--bone);background:var(--bg);-webkit-font-smoothing:antialiased;}
     .checkout-header{position:sticky;top:0;backdrop-filter:blur(4px);background:rgba(10,10,10,0.35);border-bottom:4px solid rgba(153,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem;z-index:50}
     .checkout-header.solid{background:var(--bg);}
-    .logo{display:flex;align-items:center;gap:.6rem}
-    .logo svg{width:36px;height:36px;fill:var(--bone)}
+    .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--bone)}
+    .brand{font-family:"Space Grotesk",Montserrat,system-ui,sans-serif;font-weight:600;letter-spacing:1px;text-transform:uppercase;font-size:1.05rem}
+    .brand-logo{height:48px;width:auto;display:block}
+    .brand-text{font-weight:700;line-height:1}
+    @media(max-width:600px){.brand-logo{height:40px}.brand-text{font-size:.95rem}}
     nav a{color:var(--bone);text-decoration:none;margin-left:1rem;font-weight:600}
     nav a:focus,nav a:hover{text-decoration:underline;color:var(--accent);outline:none}
 
@@ -77,9 +80,9 @@
 </head>
 <body>
   <header class="checkout-header" id="siteHeader">
-    <a class="logo" aria-label="Burning Brew home" href="index.html">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-      <span style="font-weight:700">Burning Brew</span>
+    <a class="logo brand" aria-label="Burning Brew home" href="index.html">
+      <img src="assets/svg-trans-logo-icon-01-bone.svg" alt="Burning Brew logo" class="brand-logo">
+      <span class="brand-text">Burning Brew</span>
     </a>
     <nav aria-label="Primary">
       <a href="products.html">Products</a>
