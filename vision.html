@@ -258,12 +258,14 @@
           const viewportCenterX = viewportRect.width / 2;
 
           // compute slide center relative to track
-          const trackRect = track.getBoundingClientRect();
+          // Temporarily remove transforms to measure slide positions relative to the track
+          const prevTransform = track.style.transform || '';
+          track.style.transform = 'none';
           const slideCenters = slides.map(s => {
-            const r = s.getBoundingClientRect();
-            // center relative to track left
-            return (r.left - trackRect.left) + (r.width / 2);
+            return s.offsetLeft + (s.offsetWidth / 2);
           });
+          // restore previous transform (will be overwritten below)
+          track.style.transform = prevTransform;
 
           const targetCenter = slideCenters[centerIndex] || 0;
           const translateX = Math.round(targetCenter - viewportCenterX);
@@ -282,8 +284,8 @@
           btnNext.disabled = centerIndex >= maxCenter;
         }
 
-        btnNext.addEventListener('click', (e)=>{ e.preventDefault(); centerIndex = clampCenterIndex(centerIndex + 1, slidesToShow()); update(); });
-        btnPrev.addEventListener('click', (e)=>{ e.preventDefault(); centerIndex = clampCenterIndex(centerIndex - 1, slidesToShow()); update(); });
+  btnNext.addEventListener('click', (e)=>{ e.preventDefault(); centerIndex = clampCenterIndex(centerIndex + 1, slidesToShow()); console.log('carousel: next ->', centerIndex); update(); });
+  btnPrev.addEventListener('click', (e)=>{ e.preventDefault(); centerIndex = clampCenterIndex(centerIndex - 1, slidesToShow()); console.log('carousel: prev ->', centerIndex); update(); });
 
         // keyboard support on buttons (space/enter)
         [btnPrev, btnNext].forEach(b=> b.addEventListener('keydown', (e)=>{
