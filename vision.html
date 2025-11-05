@@ -239,68 +239,68 @@
           return 1;
         }
 
-        function clampPosition(pos, show){
+        function clampCenterIndex(idx, show){
           const min = Math.floor(show/2);
           const max = Math.max(min, slides.length - Math.ceil(show/2));
-          return Math.min(max, Math.max(min, pos));
+          return Math.min(max, Math.max(min, idx));
         }
 
-        let position = 0; // center index
+        // current center index
+        let centerIndex = 0;
 
         function update(){
           if(!slides.length) return;
           const show = slidesToShow();
-          position = clampPosition(position, show);
+          centerIndex = clampCenterIndex(centerIndex, show);
 
-          // measurements
-          const gap = parseFloat(getComputedStyle(track).gap) || 0;
-          const slideRect = slides[0].getBoundingClientRect();
-          const slideW = slideRect.width;
-          const viewportW = viewport.getBoundingClientRect().width;
+          // compute transform so slide at centerIndex is centered in viewport
+          const viewportRect = viewport.getBoundingClientRect();
+          const viewportCenterX = viewportRect.width / 2;
 
-          // shift so the 'position' slide is centered in the viewport
-          const targetShift = (slideW + gap) * position - (viewportW - slideW) / 2;
-          track.style.transform = `translateX(${ -Math.round(targetShift) }px)`;
+          // compute slide center relative to track
+          const slideCenters = slides.map(s => {
+            const r = s.getBoundingClientRect();
+            // left position relative to track
+            const left = s.offsetLeft;
+            return left + r.width / 2;
+          });
 
-          // update classes for visual emphasis
+          const targetCenter = slideCenters[centerIndex] || 0;
+          const translateX = Math.round(targetCenter - viewportCenterX);
+          track.style.transform = `translateX(${ -translateX }px)`;
+
+          // update classes
           slides.forEach(s => s.classList.remove('center','adjacent'));
-          const center = slides[position];
-          if(center) center.classList.add('center');
-          if(slides[position - 1]) slides[position - 1].classList.add('adjacent');
-          if(slides[position + 1]) slides[position + 1].classList.add('adjacent');
+          if(slides[centerIndex]) slides[centerIndex].classList.add('center');
+          if(slides[centerIndex - 1]) slides[centerIndex - 1].classList.add('adjacent');
+          if(slides[centerIndex + 1]) slides[centerIndex + 1].classList.add('adjacent');
 
-          // disable buttons when centered at ends
-          const minPos = Math.floor(show/2);
-          const maxPos = Math.max(minPos, slides.length - Math.ceil(show/2));
-          btnPrev.disabled = position <= minPos;
-          btnNext.disabled = position >= maxPos;
+          // enable/disable
+          const minCenter = Math.floor(show/2);
+          const maxCenter = Math.max(minCenter, slides.length - Math.ceil(show/2));
+          btnPrev.disabled = centerIndex <= minCenter;
+          btnNext.disabled = centerIndex >= maxCenter;
         }
 
-        btnNext.addEventListener('click', ()=>{
-          position = clampPosition(position + 1, slidesToShow());
-          update();
-        });
-        btnPrev.addEventListener('click', ()=>{
-          position = clampPosition(position - 1, slidesToShow());
-          update();
-        });
+        btnNext.addEventListener('click', (e)=>{ e.preventDefault(); centerIndex = clampCenterIndex(centerIndex + 1, slidesToShow()); update(); });
+        btnPrev.addEventListener('click', (e)=>{ e.preventDefault(); centerIndex = clampCenterIndex(centerIndex - 1, slidesToShow()); update(); });
 
-        // recompute on resize (debounced by rAF)
-        let rfid = null;
+        // keyboard support on buttons (space/enter)
+        [btnPrev, btnNext].forEach(b=> b.addEventListener('keydown', (e)=>{
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); b.click(); }
+        }));
+
+        // recompute on resize
+        let rafId = null;
         window.addEventListener('resize', ()=>{
-          if(rfid) cancelAnimationFrame(rfid);
-          rfid = requestAnimationFrame(()=>{
-            // clamp position within new bounds and update
-            position = clampPosition(position, slidesToShow());
-            update();
-            rfid = null;
-          });
+          if(rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(()=>{ centerIndex = clampCenterIndex(centerIndex, slidesToShow()); update(); rafId = null; });
         });
 
-        // initial center should be the first 'center' index
-        position = Math.floor(slidesToShow()/2);
-        // allow images/fonts to load and layout to settle then update
-        requestAnimationFrame(()=>{ setTimeout(update, 30); });
+        // initial center
+        centerIndex = Math.floor(slidesToShow()/2);
+        // allow layout to settle
+        requestAnimationFrame(()=> setTimeout(update, 40));
       });
     })();
   });
