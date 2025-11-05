@@ -78,27 +78,34 @@
 
     <section class="vision-section container">
       <h2 class="section-subtitle">What We Stand For</h2>
-      <div class="principles-grid">
-        <article class="principle-card">
-          <h3>Strength over sugar.</h3>
-          <p>Flavor first, sweetener optional.</p>
-        </article>
-        <article class="principle-card">
-          <h3>Process over poses.</h3>
-          <p>We publish roast curves, not stock photos of hands holding dirt.</p>
-        </article>
-        <article class="principle-card">
-          <h3>Sourcing with a backbone.</h3>
-          <p>We pay fairly and name farms. If we can’t trace it, we don’t sell it.</p>
-        </article>
-        <article class="principle-card">
-          <h3>Fresh or forget it.</h3>
-          <p>Roast dates on every bag. If it sits too long, it’s gone.</p>
-        </article>
-        <article class="principle-card">
-          <h3>No cult, just coffee.</h3>
-          <p>Join if you want. Leave when you want. We’ll still be here at 6 a.m.</p>
-        </article>
+      <!-- Carousel showing 3 cards at a time (responsive). Uses existing .principle-card styles for content. -->
+      <div class="carousel" aria-roledescription="carousel">
+        <button class="carousel-btn prev" aria-label="Previous">‹</button>
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <article class="principle-card carousel-slide">
+              <h3>Strength over sugar.</h3>
+              <p>Flavor first, sweetener optional.</p>
+            </article>
+            <article class="principle-card carousel-slide">
+              <h3>Process over poses.</h3>
+              <p>We publish roast curves, not stock photos of hands holding dirt.</p>
+            </article>
+            <article class="principle-card carousel-slide">
+              <h3>Sourcing with a backbone.</h3>
+              <p>We pay fairly and name farms. If we can’t trace it, we don’t sell it.</p>
+            </article>
+            <article class="principle-card carousel-slide">
+              <h3>Fresh or forget it.</h3>
+              <p>Roast dates on every bag. If it sits too long, it’s gone.</p>
+            </article>
+            <article class="principle-card carousel-slide">
+              <h3>No cult, just coffee.</h3>
+              <p>Join if you want. Leave when you want. We’ll still be here at 6 a.m.</p>
+            </article>
+          </div>
+        </div>
+        <button class="carousel-btn next" aria-label="Next">›</button>
       </div>
     </section>
 
@@ -215,6 +222,54 @@
     );
 
     revealTargets.forEach((el) => observer.observe(el));
+
+    // Simple responsive carousel for the "What We Stand For" section
+    (function initCarousels(){
+      const carousels = document.querySelectorAll('.carousel');
+      carousels.forEach(carousel => {
+        const track = carousel.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const btnPrev = carousel.querySelector('.carousel-btn.prev');
+        const btnNext = carousel.querySelector('.carousel-btn.next');
+        let index = 0;
+
+        function slidesToShow(){
+          if(window.matchMedia('(min-width:960px)').matches) return 3;
+          if(window.matchMedia('(min-width:600px)').matches) return 2;
+          return 1;
+        }
+
+        function update(){
+          const gap = parseFloat(getComputedStyle(track).gap) || 0;
+          const slideWidth = slides[0].getBoundingClientRect().width;
+          const shift = (slideWidth + gap) * index;
+          track.style.transform = `translateX(${ -Math.round(shift) }px)`;
+          const maxIndex = Math.max(0, slides.length - slidesToShow());
+          btnPrev.disabled = index <= 0;
+          btnNext.disabled = index >= maxIndex;
+        }
+
+        btnNext.addEventListener('click', ()=>{
+          const maxIndex = Math.max(0, slides.length - slidesToShow());
+          index = Math.min(index + 1, maxIndex);
+          update();
+        });
+        btnPrev.addEventListener('click', ()=>{
+          index = Math.max(0, index - 1);
+          update();
+        });
+
+        window.addEventListener('resize', ()=>{
+          // clamp index to available range when responsive breakpoint changes
+          index = Math.min(index, Math.max(0, slides.length - slidesToShow()));
+          // small timeout to allow layout to settle
+          requestAnimationFrame(update);
+        });
+
+        // initial
+        update();
+      });
+    })();
   });
 </script>
 </body>

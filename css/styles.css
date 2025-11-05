@@ -102,6 +102,25 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .principles-grid .principle-card:nth-child(3){transition-delay:.15s}
 .principles-grid .principle-card:nth-child(4){transition-delay:.2s}
 .principles-grid .principle-card:nth-child(5){transition-delay:.25s}
+
+/* Carousel styles for the "What We Stand For" section */
+.carousel{position:relative;margin:1.5rem 0}
+.carousel-viewport{overflow:hidden}
+.carousel-track{display:flex;gap:1.5rem;transition:transform .36s ease;will-change:transform}
+.carousel-slide{flex:0 0 calc((100% - (var(--gap,1.5rem) * (var(--show,1) - 1))) / var(--show,1));}
+
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);color:var(--fossil-bone);border:0;padding:.6rem .8rem;border-radius:8px;cursor:pointer;font-size:1.6rem;line-height:1}
+.carousel-btn:disabled{opacity:.45;cursor:default}
+.carousel-btn.prev{left:-.5rem}
+.carousel-btn.next{right:-.5rem}
+
+/* responsive: default 1 slide, 2 on mid, 3 on larger */
+@media(min-width:600px){
+  .carousel-slide{--show:2}
+}
+@media(min-width:960px){
+  .carousel-slide{--show:3}
+}
 .process-grid{display:grid;gap:1.5rem;margin:1.5rem auto 0;padding:0}
 .process-card{position:relative;min-height:320px;border-radius:16px;overflow:hidden;background:#101014;border:1px solid rgba(255,255,255,.06);box-shadow:0 18px 36px rgba(0,0,0,.26);transition:transform .25s ease, box-shadow .25s ease, filter .3s ease, opacity var(--motion-time) var(--motion-ease);filter:brightness(1)}
 .process-card__image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.85) contrast(1.1);transition:filter .35s ease;z-index:0}
