@@ -314,3 +314,27 @@ img{max-width:100%;height:auto;display:block}
 .newsletter.container{text-align:center;margin:2.5rem auto}
 .newsletter.container .section-title{margin-bottom:1rem}
 .newsletter.container .muted{margin-bottom:1.25rem}
+
+/* Small-screen layout fixes: tighten spacing and ensure content stacks nicely */
+@media (max-width:699px){
+  /* give the site some breathing room on tiny screens */
+  .container{padding:0 1rem}
+
+  /* hero should be shorter and less padded on phones */
+  .hero{padding:2.5rem 0;min-height:56vh}
+  .hero-inner{padding:0 0.25rem}
+  .hero-title{font-size:clamp(1.8rem,6.5vw,2.6rem)}
+
+  /* manifesto and long copy should not be constrained by a wide line-length */
+  .manifesto-copy{max-width:none;padding-right:0}
+
+  /* slightly reduce nav/header padding on very small viewports */
+  .nav-inner{padding:.5rem .75rem}
+
+  /* tighten card/grid spacing */
+  .teaser-grid .grid{gap:.75rem}
+  .card{padding:.85rem}
+
+  /* footer spacing adjustments */
+  .footer-inner{padding:1rem}
+}
