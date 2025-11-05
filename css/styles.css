@@ -276,6 +276,16 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 }
 .footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;padding:1.25rem}
 .bottom-bar{padding:.75rem;text-align:center;border-top:1px solid rgba(255,255,255,.02);font-size:.9rem;color:var(--steel-grey)}
+
+/* Footer typography: normalize sizes so all columns read consistently */
+.site-footer{font-size:0.95rem}
+.site-footer .footer-inner{align-items:start}
+.site-footer .section-title{font-size:1.05rem;margin:0 0 .5rem;letter-spacing:0.02em}
+.site-footer .logo{font-size:1.05rem;font-weight:700}
+.site-footer .tagline{font-size:0.95rem;color:var(--steel-grey)}
+.site-footer .contributors .gh-name{font-size:0.95rem}
+.site-footer .newsletter .newsletter-row input{font-size:0.95rem}
+.site-footer .newsletter .join-order{font-size:0.95rem}
 .newsletter-form{display:flex;gap:1rem;max-width:480px;margin:1.5rem auto 0}
 .newsletter-form input{flex:1;padding:.75rem;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--fossil-bone);font-family:inherit}
 .newsletter-form input::placeholder{color:rgba(255,255,255,.5)}
