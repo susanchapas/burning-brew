@@ -509,10 +509,15 @@ img{max-width:100%;height:auto;display:block}
 
 .-- Hero video styling */
 .hero-video{
+  /* ensure the video fills the hero container in all browsers */
   position:absolute;
-  inset:0;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
+  /* explicit minimums help when some browsers respect intrinsic aspect ratios */
+  min-width:100%;
+  min-height:100%;
   display:block;
   object-fit:cover;
   object-position:center center;
