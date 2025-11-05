@@ -78,34 +78,28 @@
 
     <section class="vision-section container">
       <h2 class="section-subtitle">What We Stand For</h2>
-      <!-- Carousel showing 3 cards at a time (responsive). Uses existing .principle-card styles for content. -->
-      <div class="carousel" aria-roledescription="carousel">
-        <button type="button" class="carousel-btn prev" aria-label="Previous">‹</button>
-        <div class="carousel-viewport">
-          <div class="carousel-track">
-            <article class="principle-card carousel-slide">
-              <h3>Strength over sugar.</h3>
-              <p>Flavor first, sweetener optional.</p>
-            </article>
-            <article class="principle-card carousel-slide">
-              <h3>Process over poses.</h3>
-              <p>We publish roast curves, not stock photos of hands holding dirt.</p>
-            </article>
-            <article class="principle-card carousel-slide">
-              <h3>Sourcing with a backbone.</h3>
-              <p>We pay fairly and name farms. If we can’t trace it, we don’t sell it.</p>
-            </article>
-            <article class="principle-card carousel-slide">
-              <h3>Fresh or forget it.</h3>
-              <p>Roast dates on every bag. If it sits too long, it’s gone.</p>
-            </article>
-            <article class="principle-card carousel-slide">
-              <h3>No cult, just coffee.</h3>
-              <p>Join if you want. Leave when you want. We’ll still be here at 6 a.m.</p>
-            </article>
-          </div>
-        </div>
-        <button type="button" class="carousel-btn next" aria-label="Next">›</button>
+      <!-- Static cards (replacing carousel) -->
+      <div class="principles-grid">
+        <article class="principle-card">
+          <h3>Strength over sugar.</h3>
+          <p>Flavor first, sweetener optional.</p>
+        </article>
+        <article class="principle-card">
+          <h3>Process over poses.</h3>
+          <p>We publish roast curves, not stock photos of hands holding dirt.</p>
+        </article>
+        <article class="principle-card">
+          <h3>Sourcing with a backbone.</h3>
+          <p>We pay fairly and name farms. If we can’t trace it, we don’t sell it.</p>
+        </article>
+        <article class="principle-card">
+          <h3>Fresh or forget it.</h3>
+          <p>Roast dates on every bag. If it sits too long, it’s gone.</p>
+        </article>
+        <article class="principle-card">
+          <h3>No cult, just coffee.</h3>
+          <p>Join if you want. Leave when you want. We’ll still be here at 6 a.m.</p>
+        </article>
       </div>
     </section>
 
@@ -223,134 +217,7 @@
 
     revealTargets.forEach((el) => observer.observe(el));
 
-    // Simple responsive carousel for the "What We Stand For" section
-    (function initCarousels(){
-      const carousels = document.querySelectorAll('.carousel');
-      carousels.forEach(carousel => {
-        const viewport = carousel.querySelector('.carousel-viewport');
-        const track = carousel.querySelector('.carousel-track');
-        const slides = Array.from(track.children);
-        const btnPrev = carousel.querySelector('.carousel-btn.prev');
-        const btnNext = carousel.querySelector('.carousel-btn.next');
-
-        function slidesToShow(){
-          if(window.matchMedia('(min-width:960px)').matches) return 3;
-          if(window.matchMedia('(min-width:600px)').matches) return 2;
-          return 1;
-        }
-
-        function clampCenterIndex(idx, show){
-          const min = Math.floor(show/2);
-          const max = Math.max(min, slides.length - Math.ceil(show/2));
-          // ensure idx is an integer and clamped to [min, max]
-          const n = Math.round(Number(idx) || 0);
-          return Math.max(min, Math.min(max, n));
-        }
-
-        // current center index
-        let centerIndex = 0;
-
-        function update(){
-          if(!slides.length) return;
-          const show = slidesToShow();
-          centerIndex = clampCenterIndex(centerIndex, show);
-
-          // compute transform so slide at centerIndex is centered in viewport
-          const viewportRect = viewport.getBoundingClientRect();
-          const viewportCenterX = viewportRect.width / 2;
-
-          // compute slide center relative to track
-          // Temporarily remove transforms to measure slide positions relative to the track
-          const prevTransform = track.style.transform || '';
-          track.style.transform = 'none';
-          const slideCenters = slides.map(s => {
-            return s.offsetLeft + (s.offsetWidth / 2);
-          });
-          // restore previous transform (will be overwritten below)
-          track.style.transform = prevTransform;
-
-          const targetCenter = slideCenters[centerIndex] || 0;
-          const translateX = Math.round(targetCenter - viewportCenterX);
-          track.style.transform = `translateX(${ -translateX }px)`;
-
-          // update classes
-          slides.forEach(s => s.classList.remove('center','adjacent'));
-          if(slides[centerIndex]) slides[centerIndex].classList.add('center');
-          if(slides[centerIndex - 1]) slides[centerIndex - 1].classList.add('adjacent');
-          if(slides[centerIndex + 1]) slides[centerIndex + 1].classList.add('adjacent');
-
-          // enable/disable
-          const minCenter = Math.floor(show/2);
-          const maxCenter = Math.max(minCenter, slides.length - Math.ceil(show/2));
-          btnPrev.disabled = centerIndex <= minCenter;
-          btnNext.disabled = centerIndex >= maxCenter;
-        }
-
-  // pointer and click handlers for better cross-device reliability
-  function goNext(e){ if(e) e.preventDefault(); centerIndex = clampCenterIndex(centerIndex + 1, slidesToShow()); console.log('carousel: next ->', centerIndex); update(); }
-  function goPrev(e){ if(e) e.preventDefault(); centerIndex = clampCenterIndex(centerIndex - 1, slidesToShow()); console.log('carousel: prev ->', centerIndex); update(); }
-
-  if(!btnNext || !btnPrev){
-    console.error('carousel: arrow buttons not found', { btnPrev, btnNext });
-  } else {
-    // visual / input feedback and robust handlers
-    function flashButton(b){
-      try{ b.classList.add('pressed'); }catch(e){}
-      setTimeout(()=>{ try{ b.classList.remove('pressed'); }catch(e){} }, 140);
-    }
-
-    btnNext.addEventListener('click', (e)=>{ flashButton(btnNext); goNext(e); });
-    btnPrev.addEventListener('click', (e)=>{ flashButton(btnPrev); goPrev(e); });
-
-    // pointer events often fire more consistently on mobile/touch devices
-    btnNext.addEventListener('pointerdown', (e)=>{ e.preventDefault(); flashButton(btnNext); });
-    btnPrev.addEventListener('pointerdown', (e)=>{ e.preventDefault(); flashButton(btnPrev); });
-
-    btnNext.addEventListener('pointerup', goNext);
-    btnPrev.addEventListener('pointerup', goPrev);
-  }
-
-  // keyboard support on buttons (space/enter)
-  [btnPrev, btnNext].forEach(b=> {
-    if(!b) return;
-    b.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); b.click(); }
-    });
-  });
-
-  // clicking a slide centers it — useful for both desktop and touch users
-  slides.forEach((s, i) => {
-    s.style.cursor = 'pointer';
-    s.addEventListener('click', (ev) => {
-      ev.preventDefault();
-      console.log('carousel: slide click ->', i);
-      centerIndex = clampCenterIndex(i, slidesToShow());
-      update();
-    });
-    // also pointer support
-    s.addEventListener('pointerup', (ev) => {
-      ev.preventDefault();
-      centerIndex = clampCenterIndex(i, slidesToShow());
-      update();
-    });
-  });
-
-  // sanity log so we can see initialization values in console
-  console.log('carousel init', { slides: slides.length, initialCenter: centerIndex, slidesToShow: slidesToShow() });
-
-        // recompute on resize
-        let rafId = null;
-        window.addEventListener('resize', ()=>{
-          if(rafId) cancelAnimationFrame(rafId);
-          rafId = requestAnimationFrame(()=>{ centerIndex = clampCenterIndex(centerIndex, slidesToShow()); update(); rafId = null; });
-        });
-
-  // initial center: start with the middle slide so center emphasis is visible
-  centerIndex = Math.floor(slides.length / 2);
-        // allow layout to settle
-        requestAnimationFrame(()=> setTimeout(update, 40));
-      });
-    })();
+    // carousel removed: replaced with static `.principles-grid` per request
   });
 </script>
 </body>
