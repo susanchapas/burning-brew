@@ -53,14 +53,19 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
 .nav-toggle{display:none;background:none;border:0;color:var(--fossil-bone);font-size:1.25rem}
 
 .hero{
-  /* make the hero take up more of the viewport and center content vertically */
-  min-height:80vh;
+  /* Hero must fill the viewport and center content both axes */
+  height:100vh;
+  min-height:100vh;
+  width:100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:6rem 0;
-  background-image:radial-gradient(circle at 20% 10%, rgba(255,199,44,.03), transparent 10%),linear-gradient(180deg, rgba(255,0,0,.02), rgba(0,0,0,.6));
-  background-blend-mode:overlay;
+  padding:0; /* keep content centered; spacing handled by .hero-inner */
+  position:relative;
+  overflow:hidden;
+  background-color:var(--void-black); /* fallback */
+  background-size:cover;
+  background-position:center;
 }
 .hero-inner{padding:0 1rem;text-align:center;max-width:1000px}
 .hero-title{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;font-size:clamp(2.5rem, 8vw, 4.5rem);margin:.25rem 0;color:var(--fossil-bone);text-transform:uppercase;letter-spacing:1px;line-height:1.1}
@@ -447,7 +452,23 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
 
 /* Visual polish overrides */
 img{max-width:100%;height:auto;display:block}
-.hero{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:6rem 0;background-image:url('../assets/hero-desert.svg'), radial-gradient(circle at 20% 10%, rgba(255,199,44,.03), transparent 10%),linear-gradient(180deg, rgba(255,0,0,.02), rgba(0,0,0,.6));background-blend-mode:normal, overlay;position:relative;overflow:hidden}
+.hero{
+  /* Hero must fill the viewport and center content both axes (duplicate block normalized)
+     Keep the homepage decorative background via .page-root .hero-deco elements instead of
+     embedding imagery here so video/background layers behave consistently. */
+  height:100vh;
+  min-height:100vh;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  position:relative;
+  overflow:hidden;
+  background-color:var(--void-black);
+  background-size:cover;
+  background-position:center;
+}
 
 /* Decorative hero textures for homepage only */
 .page-root .hero-deco{position:absolute;pointer-events:none;z-index:1;background-repeat:no-repeat;background-position:center;background-size:contain;opacity:.12;mix-blend-mode:multiply}
