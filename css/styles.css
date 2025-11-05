@@ -269,6 +269,8 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 
 /* Footer */
 .site-footer{background:linear-gradient(180deg,rgba(0,0,0,.6),var(--void-black));color:var(--fossil-bone);margin-top:3rem}
+/* position footer so we can place a logo mark flush to the left edge */
+.site-footer{position:relative}
 .caution-stripe{
   /* Removed hazard stripe per request — keep element for structure but hide visually */
   display:none;
@@ -317,6 +319,21 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 @media(max-width:699px){
   .site-footer .footer-logo{width:36px;max-width:36px}
   .site-footer .logo span{margin-top:4px}
+}
+
+/* Move the footer logo mark to the very left of the footer (visual mockup)
+   - absolutely position the existing image so it sits outside the normal column flow
+   - add left padding to the inner container so columns don't overlap the logo
+   - collapse back to normal flow on small screens */
+.site-footer .footer-logo{position:absolute;left:20px;top:18px;width:64px;z-index:260}
+.site-footer .footer-inner{padding-left:116px}
+@media(max-width:899px){
+  .site-footer .footer-logo{left:14px;top:14px;width:56px}
+  .site-footer .footer-inner{padding-left:92px}
+}
+@media(max-width:699px){
+  .site-footer .footer-logo{position:static;width:36px;margin-bottom:0}
+  .site-footer .footer-inner{padding-left:0}
 }
 .newsletter-form{display:flex;gap:1rem;max-width:480px;margin:1.5rem auto 0}
 .newsletter-form input{flex:1;padding:.75rem;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--fossil-bone);font-family:inherit}
