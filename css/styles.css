@@ -448,7 +448,7 @@ img{max-width:100%;height:auto;display:block}
 .hero{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:6rem 0;background-image:url('../assets/hero-desert.svg'), radial-gradient(circle at 20% 10%, rgba(255,199,44,.03), transparent 10%),linear-gradient(180deg, rgba(255,0,0,.02), rgba(0,0,0,.6));background-blend-mode:normal, overlay;position:relative;overflow:hidden}
 
 /* Decorative hero textures for homepage only */
-.page-root .hero-deco{position:absolute;pointer-events:none;z-index:1;background-repeat:no-repeat;background-position:center;background-size:contain;opacity:.09;mix-blend-mode:multiply}
+.page-root .hero-deco{position:absolute;pointer-events:none;z-index:1;background-repeat:no-repeat;background-position:center;background-size:contain;opacity:.12;mix-blend-mode:multiply}
 .page-root .hero-deco.hero-ring{left:4%;top:6%;width:320px;height:320px;background-image:url('../assets/coffee-ring1.svg');transform:rotate(-10deg)}
 .page-root .hero-deco.hero-splatter{right:3%;bottom:-32px;width:420px;height:420px;background-image:url('../assets/coffee-splatter1.svg');transform:rotate(6deg);opacity:.085}
 
@@ -503,7 +503,7 @@ img{max-width:100%;height:auto;display:block}
 .hero-video--a{opacity:1}
 .hero-video--vision.hero-video--a{opacity:.42;filter:grayscale(.08) contrast(1.08) brightness(1.08)}
 .hero-video--contact.hero-video--a{opacity:.82;filter:grayscale(.04) contrast(1.07) brightness(1.1)}
-.hero-inner{position:relative;z-index:3}
+.hero-inner{position:relative;z-index:5}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.55));z-index:2}
 
 /* Motion preferences */
