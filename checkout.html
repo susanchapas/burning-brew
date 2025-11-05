@@ -77,14 +77,14 @@
 </head>
 <body>
   <header class="checkout-header" id="siteHeader">
-    <a class="logo" aria-label="Burning Brew home" href="/index.html">
+    <a class="logo" aria-label="Burning Brew home" href="index.html">
       <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2"/></svg>
       <span style="font-weight:700">Burning Brew</span>
     </a>
     <nav aria-label="Primary">
-      <a href="/products.html">Products</a>
-      <a href="/vision.html">Vision</a>
-      <a href="/contact.html">Contact</a>
+      <a href="products.html">Products</a>
+      <a href="vision.html">Vision</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </header>
 
@@ -301,7 +301,7 @@
       function openModal(){ modal.setAttribute('aria-hidden','false'); modal.style.display='flex'; const prev = document.activeElement; releaseTrap = trapFocus(modal); modal.focus(); modalReturn.focus(); document.body.style.overflow='hidden'; }
       function closeModal(){ modal.setAttribute('aria-hidden','true'); modal.style.display='none'; releaseTrap(); document.body.style.overflow=''; }
 
-  modalReturn.addEventListener('click', ()=>{ closeModal(); window.location.href='/index.html'; });
+      modalReturn.addEventListener('click', ()=>{ closeModal(); window.location.href='index.html'; });
       modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
 
       // Accessibility: announce stage on load
