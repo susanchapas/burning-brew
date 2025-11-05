@@ -242,7 +242,9 @@
         function clampCenterIndex(idx, show){
           const min = Math.floor(show/2);
           const max = Math.max(min, slides.length - Math.ceil(show/2));
-          return Math.min(max, Math.max(min, idx));
+          // ensure idx is an integer and clamped to [min, max]
+          const n = Math.round(Number(idx) || 0);
+          return Math.max(min, Math.min(max, n));
         }
 
         // current center index
@@ -284,13 +286,57 @@
           btnNext.disabled = centerIndex >= maxCenter;
         }
 
-  btnNext.addEventListener('click', (e)=>{ e.preventDefault(); centerIndex = clampCenterIndex(centerIndex + 1, slidesToShow()); console.log('carousel: next ->', centerIndex); update(); });
-  btnPrev.addEventListener('click', (e)=>{ e.preventDefault(); centerIndex = clampCenterIndex(centerIndex - 1, slidesToShow()); console.log('carousel: prev ->', centerIndex); update(); });
+  // pointer and click handlers for better cross-device reliability
+  function goNext(e){ if(e) e.preventDefault(); centerIndex = clampCenterIndex(centerIndex + 1, slidesToShow()); console.log('carousel: next ->', centerIndex); update(); }
+  function goPrev(e){ if(e) e.preventDefault(); centerIndex = clampCenterIndex(centerIndex - 1, slidesToShow()); console.log('carousel: prev ->', centerIndex); update(); }
 
-        // keyboard support on buttons (space/enter)
-        [btnPrev, btnNext].forEach(b=> b.addEventListener('keydown', (e)=>{
-          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); b.click(); }
-        }));
+  if(!btnNext || !btnPrev){
+    console.error('carousel: arrow buttons not found', { btnPrev, btnNext });
+  } else {
+    // visual / input feedback and robust handlers
+    function flashButton(b){
+      try{ b.classList.add('pressed'); }catch(e){}
+      setTimeout(()=>{ try{ b.classList.remove('pressed'); }catch(e){} }, 140);
+    }
+
+    btnNext.addEventListener('click', (e)=>{ flashButton(btnNext); goNext(e); });
+    btnPrev.addEventListener('click', (e)=>{ flashButton(btnPrev); goPrev(e); });
+
+    // pointer events often fire more consistently on mobile/touch devices
+    btnNext.addEventListener('pointerdown', (e)=>{ e.preventDefault(); flashButton(btnNext); });
+    btnPrev.addEventListener('pointerdown', (e)=>{ e.preventDefault(); flashButton(btnPrev); });
+
+    btnNext.addEventListener('pointerup', goNext);
+    btnPrev.addEventListener('pointerup', goPrev);
+  }
+
+  // keyboard support on buttons (space/enter)
+  [btnPrev, btnNext].forEach(b=> {
+    if(!b) return;
+    b.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); b.click(); }
+    });
+  });
+
+  // clicking a slide centers it — useful for both desktop and touch users
+  slides.forEach((s, i) => {
+    s.style.cursor = 'pointer';
+    s.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      console.log('carousel: slide click ->', i);
+      centerIndex = clampCenterIndex(i, slidesToShow());
+      update();
+    });
+    // also pointer support
+    s.addEventListener('pointerup', (ev) => {
+      ev.preventDefault();
+      centerIndex = clampCenterIndex(i, slidesToShow());
+      update();
+    });
+  });
+
+  // sanity log so we can see initialization values in console
+  console.log('carousel init', { slides: slides.length, initialCenter: centerIndex, slidesToShow: slidesToShow() });
 
         // recompute on resize
         let rafId = null;
@@ -299,8 +345,8 @@
           rafId = requestAnimationFrame(()=>{ centerIndex = clampCenterIndex(centerIndex, slidesToShow()); update(); rafId = null; });
         });
 
-        // initial center
-        centerIndex = Math.floor(slidesToShow()/2);
+  // initial center: start with the middle slide so center emphasis is visible
+  centerIndex = Math.floor(slides.length / 2);
         // allow layout to settle
         requestAnimationFrame(()=> setTimeout(update, 40));
       });
