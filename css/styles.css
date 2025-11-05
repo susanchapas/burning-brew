@@ -509,15 +509,21 @@ img{max-width:100%;height:auto;display:block}
 
 .-- Hero video styling */
 .hero-video{
-  /* ensure the video fills the hero container in all browsers */
+  /* robust cover pattern:
+     - use object-fit:cover where supported
+     - also center via translate as a reliable fallback for browsers that
+       keep intrinsic sizing constraints on <video>
+  */
   position:absolute;
-  top:0;
-  left:0;
-  width:100%;
+  top:50%;
+  left:50%;
+  /* let the height drive sizing and ensure minimums so the video always
+     covers the container area; width:auto avoids weird letterboxing in some engines */
+  width:auto;
   height:100%;
-  /* explicit minimums help when some browsers respect intrinsic aspect ratios */
   min-width:100%;
   min-height:100%;
+  transform:translate(-50%,-50%);
   display:block;
   object-fit:cover;
   object-position:center center;
