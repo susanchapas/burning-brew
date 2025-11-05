@@ -28,6 +28,9 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .site-header.scrolled{background:linear-gradient(180deg,rgba(0,0,0,.75),rgba(0,0,0,.5));box-shadow:0 6px 18px rgba(0,0,0,.45)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem}
 .brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:500;font-size:1.3rem;letter-spacing:1px;color:var(--fossil-bone);text-decoration:none}
+/* Brand logo in nav */
+.brand-logo{height:30px;width:auto;display:inline-block;vertical-align:middle;margin-right:.6rem}
+.brand-text{vertical-align:middle;color:var(--fossil-bone);font-weight:600}
 .site-nav{display:flex;gap:1rem}
 .site-nav a{color:var(--steel-grey);text-decoration:none;padding:.25rem .25rem;border-bottom:2px solid transparent;transition:color .15s ease,border-color .15s ease}
 .site-nav a.active{color:var(--hazard-yellow);border-bottom-color:var(--hazard-yellow)}
