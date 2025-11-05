@@ -94,9 +94,10 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .vision-section ol li:last-child{margin-bottom:0}
 .principles-grid{display:grid;gap:1.5rem;margin:1.5rem auto 0;padding:0}
 .principle-card{background:rgba(18,18,20,.78);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:1.6rem;text-align:left;box-shadow:0 12px 28px rgba(0,0,0,.2);transition:transform .2s ease, box-shadow .2s ease, filter .25s ease, opacity var(--motion-time) var(--motion-ease);filter:brightness(1)}
+.principle-card{background:rgba(18,18,20,.78);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:1.6rem;text-align:left;box-shadow:0 12px 28px rgba(0,0,0,.2);transition:transform .22s cubic-bezier(.2,.9,.25,1), box-shadow .22s cubic-bezier(.2,.9,.25,1), filter .25s ease, opacity var(--motion-time) var(--motion-ease);filter:brightness(1);position:relative;z-index:0;transform-origin:center center}
 .principle-card h3{margin:0 0 .75rem;font-family:"Space Grotesk",system-ui,sans-serif;font-size:1.1rem;font-weight:600;color:#fff}
 .principle-card p{margin:0;color:rgba(215,215,215,.75);line-height:1.6;letter-spacing:.008em}
-.principle-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 16px 32px rgba(0,0,0,.26);filter:brightness(1.12);border-color:rgba(255,255,255,.14);background:rgba(26,26,28,.9)}
+.principle-card:hover{transform:translateY(-10px) scale(1.06);box-shadow:0 28px 56px rgba(0,0,0,.45);filter:brightness(1.06);border-color:rgba(255,255,255,.18);background:rgba(18,18,20,0.96);z-index:220}
 .principles-grid .principle-card:nth-child(1){transition-delay:.05s}
 .principles-grid .principle-card:nth-child(2){transition-delay:.1s}
 .principles-grid .principle-card:nth-child(3){transition-delay:.15s}
