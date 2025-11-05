@@ -80,7 +80,7 @@
       <h2 class="section-subtitle">What We Stand For</h2>
       <!-- Carousel showing 3 cards at a time (responsive). Uses existing .principle-card styles for content. -->
       <div class="carousel" aria-roledescription="carousel">
-        <button class="carousel-btn prev" aria-label="Previous">‹</button>
+        <button type="button" class="carousel-btn prev" aria-label="Previous">‹</button>
         <div class="carousel-viewport">
           <div class="carousel-track">
             <article class="principle-card carousel-slide">
@@ -105,7 +105,7 @@
             </article>
           </div>
         </div>
-        <button class="carousel-btn next" aria-label="Next">›</button>
+        <button type="button" class="carousel-btn next" aria-label="Next">›</button>
       </div>
     </section>
 
@@ -258,11 +258,11 @@
           const viewportCenterX = viewportRect.width / 2;
 
           // compute slide center relative to track
+          const trackRect = track.getBoundingClientRect();
           const slideCenters = slides.map(s => {
             const r = s.getBoundingClientRect();
-            // left position relative to track
-            const left = s.offsetLeft;
-            return left + r.width / 2;
+            // center relative to track left
+            return (r.left - trackRect.left) + (r.width / 2);
           });
 
           const targetCenter = slideCenters[centerIndex] || 0;
