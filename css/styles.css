@@ -393,9 +393,22 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
 
 /* Stack newsletter on small screens */
 @media(max-width:699px){
-  .footer-inner{grid-template-columns:1fr;gap:1rem}
-  .newsletter-row{flex-direction:column;align-items:stretch}
-  .newsletter .join-order{width:100%}
+  .footer-inner{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem 1rem}
+  .newsletter-row{flex-direction:column;align-items:stretch;gap:0.75rem}
+  .newsletter .join-order{width:100%;padding:0.8rem 1rem;font-size:1rem}
+  
+  /* Ensure footer logo and content stack nicely */
+  .site-footer .logo{justify-content:center;text-align:center;margin-bottom:0.5rem}
+  .site-footer .footer-logo{width:48px;max-width:48px}
+  .site-footer .tagline{text-align:center;margin-bottom:1rem}
+  
+  /* Center contributors section */
+  .contributors{align-items:center;text-align:center}
+  
+  /* Newsletter section improvements */
+  .site-footer .col:last-child{text-align:center}
+  .site-footer .section-title{text-align:center;margin-bottom:0.75rem}
+  .site-footer .muted{text-align:center;margin-bottom:1rem}
 }
 
 /* Utility */
@@ -607,8 +620,8 @@ img{max-width:100%;height:auto;display:block}
   .hero-title{font-size:clamp(1.8rem,6.5vw,2.6rem)}
 
   /* Defensive: prevent horizontal overflow on small devices which can
-    push centered content to the right. Also disable transform-based
-    parallax on small screens to avoid unexpected persistent translations. */
+     push centered content to the right. Also disable transform-based
+     parallax on small screens to avoid unexpected persistent translations. */
   html, body { overflow-x: hidden; }
   .hero-inner { transform: none !important; }
 
@@ -633,12 +646,7 @@ img{max-width:100%;height:auto;display:block}
   /* tighten card/grid spacing */
   .teaser-grid .grid{gap:.75rem}
   .card{padding:.85rem}
-
-  /* footer spacing adjustments */
-  .footer-inner{padding:1rem}
-}
-
-/* ======================================================================
+}/* ======================================================================
    Footer: global normalization
    Ensure the footer uses a single, consistent style and that any
    "join-order" / subscribe button inside the footer always uses the
