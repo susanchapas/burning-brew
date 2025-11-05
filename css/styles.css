@@ -522,3 +522,42 @@ img{max-width:100%;height:auto;display:block}
   /* footer spacing adjustments */
   .footer-inner{padding:1rem}
 }
+
+/* ======================================================================
+   Footer: global normalization
+   Ensure the footer uses a single, consistent style and that any
+   "join-order" / subscribe button inside the footer always uses the
+   red gradient CTA styling (overrides homepage-local variants).
+   ====================================================================== */
+.site-footer .join-order,
+.site-footer .newsletter .join-order,
+.site-footer .newsletter-row .join-order,
+.site-footer .newsletter-form .join-order{
+  /* strong specificity + placed at end of file ensures this wins */
+  padding: .7rem 1.1rem;
+  border-radius:12px;
+  font-size:1.05rem;
+  font-weight:700;
+  background:linear-gradient(90deg,var(--blood-red) 20%, var(--crude-brown) 100%);
+  color:#fff;
+  border:none;
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
+  text-shadow:0 1px 0 rgba(0,0,0,.25);
+  transition:transform .16s var(--motion-ease), box-shadow .16s var(--motion-ease), filter .16s var(--motion-ease);
+}
+.site-footer .join-order:hover,
+.site-footer .newsletter .join-order:hover,
+.site-footer .newsletter-row .join-order:hover,
+.site-footer .newsletter-form .join-order:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 36px rgba(0,0,0,.5);
+  filter:brightness(1.02);
+}
+.site-footer .join-order:active,
+.site-footer .newsletter .join-order:active,
+.site-footer .newsletter-row .join-order:active,
+.site-footer .newsletter-form .join-order:active{
+  transform:translateY(1px);
+  box-shadow:0 8px 18px rgba(0,0,0,.38);
+}
+
