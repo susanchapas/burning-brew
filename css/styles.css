@@ -389,6 +389,27 @@ img{max-width:100%;height:auto;display:block}
   .page-root .hero-deco.hero-ring{width:160px;height:160px;left:6%;top:8%;opacity:.07}
   .page-root .hero-deco.hero-splatter{width:220px;height:220px;right:6%;bottom:-18px;opacity:.06}
 }
+
+/* Homepage: apply secondary palette accents */
+.page-root a:hover{color:var(--oxidized-teal)}
+
+/* Make small CTAs use oxidized teal / crude brown gradient on homepage */
+.page-root .btn.small{border-color:rgba(74,124,124,.12);color:var(--fossil-bone)}
+.page-root .btn.small:hover{background:linear-gradient(90deg,var(--oxidized-teal),var(--crude-brown));color:#fff;border-color:transparent}
+
+/* Subscribe/hero CTA on homepage gets a teal-brown gradient for variety */
+.page-root .crude-button{background:linear-gradient(90deg,var(--blood-red),var(--crude-brown));}
+.page-root .crude-button:hover{background:linear-gradient(90deg,var(--oxidized-teal),var(--crude-brown));}
+
+/* Teaser cards get a subtle teal accent on the left to tie the palette together */
+.page-root .teaser-grid .card{border-left:4px solid transparent}
+.page-root .teaser-grid .card:hover{border-left-color:var(--oxidized-teal)}
+
+/* Process card headings pick up a teal tone to break up the warm palette */
+.page-root .process-card__inner h3{color:var(--oxidized-teal)}
+
+/* Newsletter join button in footer on homepage (if visible) uses teal accent */
+.page-root .newsletter .join-order{background:linear-gradient(90deg,var(--oxidized-teal),var(--hazard-yellow));color:var(--void-black)}
 .card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.25);transition:transform .2s ease, box-shadow .2s ease}
 .product-card:hover{background-image:url('../assets/oil-slick.svg');background-size:cover}
 .crude-button{position:relative;overflow:hidden}
