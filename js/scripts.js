@@ -93,6 +93,26 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
+  // Product "Burn Deeper" -> checkout navigation
+  // When a user clicks the Burn Deeper button on a product card, navigate to checkout.html
+  // with a URL param describing the selected product. This powers the autofill on checkout.
+  document.querySelectorAll('.product-card .crude-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const article = btn.closest('.product-card');
+      if(!article) return;
+      const id = article.id || article.getAttribute('data-product') || '';
+      // Map product IDs to checkout product keys used by checkout.html
+      const map = {
+        'dark': 'dark-roast',
+        'single-origin': 'single-origin',
+        'espresso': 'blend'
+      };
+      const prod = map[id] || id;
+      // Add a small navigation; using relative path for site portability
+      window.location.href = `checkout.html?product=${encodeURIComponent(prod)}`;
+    });
+  });
+
   // Make header feel anchored: add a scrolled class when the page scrolls
   const header = document.querySelector('.site-header');
   if(header){
