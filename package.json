@@ -1,0 +1,18 @@
+{
+  "name": "burning-brew",
+  "version": "1.0.0",
+  "description": "Static site for Burning Brew (coffee shop)",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=8080 --no-browser",
+    "dev": "live-server --port=8080 --no-browser",
+    "serve": "npm run start",
+    "build": "mkdir -p dist/css dist/js && esbuild js/scripts.js --bundle --minify --outfile=dist/js/scripts.min.js && esbuild css/styles.css --minify --outfile=dist/css/styles.min.css"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.19.12",
+    "live-server": "^1.2.2"
+  }
+}
