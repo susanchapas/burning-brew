@@ -539,6 +539,16 @@ img{max-width:100%;height:auto;display:block}
 .hero-inner{position:relative;z-index:5}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.55));z-index:2}
 
+/* Testimonials styling for products page — bold, compact, branded */
+.testimonials{padding:2.25rem 1rem;margin:2rem 0;border-top:1px solid rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(18,18,20,0.6), rgba(12,12,12,0.6));}
+.testimonial-grid{display:grid;grid-template-columns:1fr;gap:1rem;max-width:1100px;margin:0 auto}
+.testimonial{background:rgba(0,0,0,0.25);padding:1.25rem;border:1px solid rgba(255,255,255,0.03);border-radius:var(--card-radius);box-shadow:0 8px 18px rgba(0,0,0,0.2);}
+.testimonial-quote{font-family:Montserrat,system-ui,Arial,sans-serif;font-weight:600;color:var(--fossil-bone);margin:0 0 .5rem;font-size:1.05rem}
+.testimonial-author{display:block;color:var(--hazard-yellow);font-weight:700;letter-spacing:.06em}
+@media(min-width:700px){
+  .testimonial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
 /* Motion preferences */
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
