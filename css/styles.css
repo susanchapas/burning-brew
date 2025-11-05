@@ -274,9 +274,12 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
 
 /* Product layout */
 .product-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-.product-card{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);padding:1rem;border:1px solid rgba(255,255,255,.03);border-radius:var(--card-radius)}
-.product-card .specs{list-style:none;padding:0;margin:.5rem 0}
-.actions{display:flex;gap:.5rem}
+.product-card{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);padding:1rem;border:1px solid rgba(255,255,255,.03);border-radius:var(--card-radius);display:flex;flex-direction:column;gap:.75rem;height:100%}
+.product-card img{width:100%;border-radius:var(--card-radius);box-shadow:0 12px 28px rgba(0,0,0,.35)}
+.product-card h2{margin:0;font-family:"Space Grotesk",system-ui,sans-serif;font-size:1.35rem;letter-spacing:.5px}
+.product-card .muted{margin:0;color:rgba(230,230,230,.82)}
+.product-card .specs{list-style:none;padding:0;margin:.25rem 0 0 0;display:flex;flex-direction:column;gap:.35rem}
+.actions{display:flex;gap:.5rem;margin-top:auto}
 
 /* Footer */
 .site-footer{background:linear-gradient(180deg,rgba(0,0,0,.6),var(--void-black));color:var(--fossil-bone);margin-top:3rem}
@@ -686,4 +689,3 @@ img{max-width:100%;height:auto;display:block}
 
 /* Ensure header stays sticky on all viewports and sits above content */
 .site-header{position:sticky !important;top:0;z-index:9999}
-
