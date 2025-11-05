@@ -278,8 +278,11 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
     flex-direction:column;
     gap:0.5rem;
     border-top:1px solid rgba(255,255,255,0.03);
+    /* ensure the dropdown sits above hero overlays on pages with hero layers */
+    z-index:75;
+    pointer-events:auto;
   }
-  .site-nav a{padding:.75rem 0}
+  .site-nav a{padding:.75rem 0;position:relative;z-index:80}
 }
 
 /* Small visual flourishes */
