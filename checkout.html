@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Checkout | Burning Brew — Feed the Machine</title>
+  <meta name="description" content="Complete your extraction. Power the rebellion with Burning Brew.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#1a1a1c;
+      --panel:#2a2a2d;
+      --accent:#990000;
+      --bone:#f0e9d6;
+      --hazard:#ffc72c;
+      --max-width:900px;
+    }
+    html,body{height:100%;}
+    body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--bone);background:var(--bg);-webkit-font-smoothing:antialiased;}
+    .checkout-header{position:sticky;top:0;backdrop-filter:blur(4px);background:rgba(10,10,10,0.35);border-bottom:4px solid rgba(153,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem;z-index:50}
+    .checkout-header.solid{background:var(--bg);}
+    .logo{display:flex;align-items:center;gap:.6rem}
+    .logo svg{width:36px;height:36px;fill:var(--bone)}
+    nav a{color:var(--bone);text-decoration:none;margin-left:1rem;font-weight:600}
+    nav a:focus,nav a:hover{text-decoration:underline;color:var(--accent);outline:none}
+
+    .checkout-pit{max-width:var(--max-width);margin:2rem auto;padding:1rem;box-sizing:border-box}
+
+    .extraction-level{margin:1rem 0}
+    .extraction-label{font-family:Anton,impact,serif;color:var(--accent);letter-spacing:1px}
+    .gauge{height:18px;background:linear-gradient(90deg,#0f0f10 0%, #141415 100%);border-radius:6px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.04)}
+    .gauge .oil{position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,rgba(153,0,0,0.9),rgba(255,199,44,0.6));box-shadow:inset 0 -6px 12px rgba(0,0,0,0.6);transition:width 850ms cubic-bezier(.2,.9,.2,1)}
+    .gauge .oil::after{content:"";position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,rgba(0,0,0,0.0),rgba(0,0,0,0.12));mix-blend-mode:overlay}
+    .sr-live{position: absolute;left:-9999px}
+
+    .two-col{display:grid;grid-template-columns:1fr 340px;gap:1rem}
+    @media(max-width:880px){.two-col{grid-template-columns:1fr;}.fuel-load{order:2;}}
+
+    .panel{background:rgba(42,42,45,0.8);padding:1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
+    h1.page-title{font-family:Anton,impact;letter-spacing:2px;color:var(--accent);font-size:1.6rem;margin:.2rem 0}
+    .subhead{color:var(--bone);opacity:.9;margin-bottom:1rem}
+
+    form .field{margin-bottom:0.9rem}
+    label{display:block;font-weight:700;font-size:.85rem;margin-bottom:.25rem}
+    input[type="text"],input[type="email"],input[type="number"],textarea,select{width:100%;padding:.6rem;border-radius:6px;background:transparent;border:1px solid rgba(240,233,214,0.12);color:var(--bone);box-sizing:border-box}
+    textarea{min-height:84px}
+    input:focus,textarea:focus,select:focus{outline:3px solid var(--hazard);box-shadow:0 0 12px rgba(255,199,44,0.08)}
+    .error{color:#ffb3b3;font-size:.9rem;margin-top:.3rem}
+    .invalid{border-color:#990000}
+
+    .fuel-load{padding:1rem}
+    .fuel-item{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
+    .totals{font-weight:700;margin-top:.6rem}
+
+    .ignite-btn{display:inline-block;background:var(--accent);color:var(--bone);padding:.9rem 1.2rem;border-radius:6px;border:0;font-weight:700;cursor:pointer}
+    .ignite-btn:focus{outline:3px solid var(--hazard)}
+    .ignite-btn:active{transform:translateY(1px)}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:200;padding:1rem}
+    .modal[aria-hidden="false"]{display:flex}
+    .modal-card{background:rgba(10,10,10,0.96);padding:2rem;border-radius:10px;max-width:720px;color:var(--bone);text-align:center}
+    .surface-btn{margin-top:1rem;background:transparent;color:var(--hazard);border:2px solid var(--hazard);padding:.6rem 1rem;border-radius:6px}
+
+    /* subtle animations */
+    @keyframes drill-descend{0%{transform:translateY(-10px);opacity:0}100%{transform:none;opacity:1}}
+    .animate-descend{animation:drill-descend .6s ease-out}
+
+    /* mobile progress indicator */
+    .mobile-drill{display:none;margin:0 auto;width:64px;height:64px;border-radius:50%;border:6px solid rgba(255,255,255,0.04);position:relative}
+    .mobile-drill .fill{position:absolute;inset:6px;border-radius:50%;background:conic-gradient(var(--accent) 0% 0%, rgba(255,255,255,0.02) 0% 100%)}
+    @media(max-width:600px){.mobile-drill{display:block}.extraction-level{display:none}}
+
+    footer{color:rgba(240,233,214,0.5);text-align:center;margin:2rem 0}
+  </style>
+</head>
+<body>
+  <header class="checkout-header" id="siteHeader">
+    <div class="logo" aria-label="Burning Brew">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span style="font-weight:700">Burning Brew</span>
+    </div>
+    <nav aria-label="Primary">
+      <a href="/products.html">Products</a>
+      <a href="/vision.html">Vision</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="checkout-pit" id="main">
+    <div class="mobile-drill" aria-hidden="true"><div class="fill" id="mobileFill"></div></div>
+
+    <section class="extraction-level" aria-labelledby="extractionLabel">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div id="extractionLabel" class="extraction-label">EXTRACTION LEVEL</div>
+          <div class="subhead">Track the drill — progress your extraction.</div>
+        </div>
+        <div aria-hidden="true" style="font-weight:700;color:var(--hazard)">Stage 1 of 3</div>
+      </div>
+      <div class="gauge" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20" aria-label="Extraction progress">
+        <div class="oil" id="gaugeOil" style="width:20%"></div>
+      </div>
+      <div class="sr-live" aria-live="polite" id="liveRegion"></div>
+    </section>
+
+    <div class="two-col">
+      <section class="panel feed-the-machine" aria-labelledby="formTitle">
+        <h1 id="formTitle" class="page-title animate-descend">FEED THE MACHINE</h1>
+        <p class="subhead">Complete your extraction and fuel your next mission.</p>
+
+        <form id="checkoutForm" novalidate>
+          <div class="field">
+            <label for="fullName">Full Name</label>
+            <input id="fullName" name="fullName" type="text" placeholder="Who survives the grind?" required aria-describedby="fullNameHelp fullNameError">
+            <div id="fullNameHelp" class="help" style="font-size:.85rem;opacity:.8">Please provide the name for shipment.</div>
+            <div id="fullNameError" class="error" aria-live="assertive"></div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="Where do we send your coordinates?" required aria-describedby="emailHelp emailError">
+            <div id="emailHelp" class="help" style="font-size:.85rem;opacity:.8">We'll send a confirmation to this address.</div>
+            <div id="emailError" class="error" aria-live="assertive"></div>
+          </div>
+
+          <div class="field">
+            <label for="address">Shipping Address</label>
+            <textarea id="address" name="address" placeholder="Mark your territory." required aria-describedby="addressError"></textarea>
+            <div id="addressError" class="error" aria-live="assertive"></div>
+          </div>
+
+          <div class="field">
+            <label for="product">Select Product</label>
+            <select id="product" name="product" aria-describedby="productHelp">
+              <option value="single-origin">Single Origin – 1 Bag — $18.00</option>
+              <option value="dark-roast">Dark Roast — 1 Bag — $18.00</option>
+              <option value="blend">The Blend — 1 Bag — $16.00</option>
+            </select>
+            <div id="productHelp" class="help" style="font-size:.85rem;opacity:.8">Pre-selected from your selection on Products.</div>
+          </div>
+
+          <div class="field" style="display:flex;gap:.5rem;align-items:center">
+            <div style="flex:1">
+              <label for="quantity">Quantity</label>
+              <input id="quantity" name="quantity" type="number" min="1" value="1" aria-describedby="quantityError">
+              <div id="quantityError" class="error" aria-live="assertive"></div>
+            </div>
+            <fieldset style="flex:1;border:0;padding:0;margin:0">
+              <legend style="font-weight:700">Delivery</legend>
+              <label><input type="radio" name="delivery" value="standard" checked> Standard Burn (3–5 days)</label><br>
+              <label><input type="radio" name="delivery" value="rush"> Rush Ignition (1–2 days)</label>
+            </fieldset>
+          </div>
+
+          <div class="field">
+            <label><input id="subscribe" type="checkbox" name="subscribe"> Subscribe to the Source (Monthly Rations)</label>
+          </div>
+
+          <div style="display:flex;gap:.6rem;align-items:center;margin-top:1rem">
+            <button class="ignite-btn" type="button" id="toPayment">Ignite Purchase</button>
+            <div style="margin-left:auto;color:rgba(240,233,214,0.6);font-size:.95rem">Total: <strong id="totalPrice">$23.50</strong></div>
+          </div>
+        </form>
+      </section>
+
+      <aside class="panel fuel-load" aria-labelledby="summaryTitle">
+        <h2 id="summaryTitle" style="font-family:Anton,impact;color:var(--accent);">YOUR FUEL LOAD</h2>
+        <div id="itemsList">
+          <div class="fuel-item"><span>Single Origin — 1 Bag</span><span>$18.00</span></div>
+          <div class="fuel-item"><span>Shipping — Standard Burn</span><span>$4.00</span></div>
+          <div class="fuel-item totals"><span>Subtotal</span><span>$22.00</span></div>
+          <div class="fuel-item"><span>Tax</span><span>$1.50</span></div>
+          <div class="fuel-item totals"><strong>Total</strong><strong id="summaryTotal">$23.50</strong></div>
+        </div>
+        <div style="margin-top:1rem">
+          <button class="ignite-btn" id="scrollToPayment">Refine & Pay</button>
+        </div>
+      </aside>
+    </div>
+
+    <section class="panel refining-energy" id="paymentSection" style="margin-top:1rem" aria-labelledby="paymentTitle">
+      <h2 id="paymentTitle" style="font-family:Anton,impact;color:var(--accent);">REFINING YOUR ENERGY</h2>
+      <form id="paymentForm" novalidate>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;">
+          <div class="field"><label for="cardNumber">Card Number</label><input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" placeholder="•••• •••• •••• ••••" autocomplete="cc-number" required aria-describedby="cardError"></div>
+          <div class="field"><label for="exp">Expiration</label><input id="exp" name="exp" type="text" placeholder="MM/YY" required aria-describedby="expError"></div>
+        </div>
+        <div style="display:flex;gap:.6rem;align-items:center;margin-top:.6rem">
+          <div style="flex:1" class="field"><label for="cvv">CVV</label><input id="cvv" name="cvv" type="text" inputmode="numeric" placeholder="123" required aria-describedby="cvvError"></div>
+          <div style="flex:1;align-self:end"><label><input type="checkbox" id="savePayment"> Save payment details for next extraction</label></div>
+        </div>
+
+        <div id="paymentError" class="error" aria-live="assertive"></div>
+        <div style="margin-top:1rem">
+          <button class="ignite-btn" id="igniteTransaction" type="button">Ignite Transaction</button>
+        </div>
+      </form>
+    </section>
+
+    <footer aria-hidden="false">They burned. We brewed. Drink what's left.</footer>
+  </main>
+
+  <div class="modal" id="confirmationModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal-card" role="document">
+      <h2 id="modalTitle" style="font-family:Anton,impact;color:var(--hazard)">You’ve Joined the Fossil Order.</h2>
+      <p style="margin-top:1rem;color:var(--bone)">A confirmation has been sent to your coordinates. The excavation continues.</p>
+      <button class="surface-btn" id="returnSurface">Return to the Surface</button>
+    </div>
+  </div>
+
+  <script>
+    // Minimal behavior: product autofill, progress updates, validation, modal focus trap
+    (function(){
+      const params = new URLSearchParams(location.search);
+      const product = params.get('product');
+      if(product){
+        const sel = document.getElementById('product');
+        for(const opt of sel.options) if(opt.value===product) opt.selected=true;
+      }
+
+      const gauge = document.getElementById('gaugeOil');
+      const live = document.getElementById('liveRegion');
+      const mobileFill = document.getElementById('mobileFill');
+
+      function setStage(n){
+        const pct = n===1?20:(n===2?60:100);
+        gauge.style.width = pct + '%';
+        gauge.parentElement.setAttribute('aria-valuenow', pct);
+        live.textContent = 'Extraction progress: stage '+n+' of 3';
+        if(mobileFill) mobileFill.style.background = 'conic-gradient(var(--accent) 0% '+pct+'%, rgba(255,255,255,0.02) '+pct+'% 100%)';
+      }
+      setStage(1);
+
+      // Header solid on scroll
+      const header = document.getElementById('siteHeader');
+      window.addEventListener('scroll', ()=>{ if(window.scrollY>10) header.classList.add('solid'); else header.classList.remove('solid'); });
+
+      // Simple form validation
+      const checkoutForm = document.getElementById('checkoutForm');
+      const paymentForm = document.getElementById('paymentForm');
+      const toPayment = document.getElementById('toPayment');
+      const scrollToPayment = document.getElementById('scrollToPayment');
+
+      function showError(el, msg){ el.classList.add('invalid'); const err = document.getElementById(el.id+'Error'); if(err) err.textContent = msg; el.setAttribute('aria-invalid','true'); }
+      function clearError(el){ el.classList.remove('invalid'); const err = document.getElementById(el.id+'Error'); if(err) err.textContent = ''; el.removeAttribute('aria-invalid'); }
+
+      function validateCheckout(){
+        let ok=true;
+        [['fullName','Please tell the machine who you are.'],['email','Please provide a valid email.'],['address','The machine needs this info.']].forEach(([id,msg])=>{
+          const el=document.getElementById(id);
+          if(!el.value || (id==='email' && !/\S+@\S+\.\S+/.test(el.value))){ showError(el,msg); ok=false } else clearError(el);
+        });
+        return ok;
+      }
+
+      toPayment.addEventListener('click', ()=>{
+        if(!validateCheckout()) return; // stay on form
+        // move to payment
+        setStage(2);
+        document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'});
+      });
+      scrollToPayment.addEventListener('click', ()=>{ document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'}); setStage(2); });
+
+      // Payment handling (simulation)
+      const igniteBtn = document.getElementById('igniteTransaction');
+      const modal = document.getElementById('confirmationModal');
+      const modalReturn = document.getElementById('returnSurface');
+
+      function validatePayment(){
+        let ok=true;
+        [['cardNumber','Enter a valid card number.'],['exp','Enter expiration (MM/YY).'],['cvv','Enter CVV.']].forEach(([id,msg])=>{
+          const el=document.getElementById(id);
+          if(!el.value){ showError(el,msg); ok=false } else clearError(el);
+        });
+        return ok;
+      }
+
+      igniteBtn.addEventListener('click', ()=>{
+        if(!validatePayment()) return;
+        igniteBtn.disabled=true; igniteBtn.textContent='Processing...';
+        setStage(3);
+        // small simulated animation delay
+        setTimeout(()=>{
+          openModal(); igniteBtn.disabled=false; igniteBtn.textContent='Ignite Transaction';
+        },900);
+      });
+
+      // Modal
+      function trapFocus(modalEl){
+        const focusable = modalEl.querySelectorAll('a[href], button:not([disabled]), textarea, input, select');
+        if(focusable.length===0) return ()=>{};
+        let first = focusable[0], last = focusable[focusable.length-1];
+        function key(e){ if(e.key==='Tab'){ if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); } else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } } if(e.key==='Escape'){ closeModal(); } }
+        document.addEventListener('keydown', key);
+        return ()=>document.removeEventListener('keydown', key);
+      }
+
+      let releaseTrap = ()=>{};
+      function openModal(){ modal.setAttribute('aria-hidden','false'); modal.style.display='flex'; const prev = document.activeElement; releaseTrap = trapFocus(modal); modal.focus(); modalReturn.focus(); document.body.style.overflow='hidden'; }
+      function closeModal(){ modal.setAttribute('aria-hidden','true'); modal.style.display='none'; releaseTrap(); document.body.style.overflow=''; }
+
+      modalReturn.addEventListener('click', ()=>{ closeModal(); window.location.href='/'; });
+      modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
+
+      // Accessibility: announce stage on load
+      setTimeout(()=>{ live.textContent='Stage 1: Info Extraction.' },400);
+
+      // expose basic totals update (quantity/product)
+      const productSel = document.getElementById('product');
+      const quantityEl = document.getElementById('quantity');
+      const totalPrice = document.getElementById('totalPrice');
+      const summaryTotal = document.getElementById('summaryTotal');
+
+      function priceOf(product){ if(product==='blend') return 16; return 18 }
+      function shippingOf(){ const d = document.querySelector('input[name="delivery"]:checked').value; return d==='rush'?8:4 }
+      function updateTotals(){ const qty=Number(quantityEl.value)||1; const p=priceOf(productSel.value); const ship=shippingOf(); const subtotal = (p*qty); const tax = +(subtotal*0.068).toFixed(2); const total = (subtotal+ship+tax).toFixed(2); totalPrice.textContent='$'+total; summaryTotal.textContent='$'+total; }
+      productSel.addEventListener('change', updateTotals); quantityEl.addEventListener('input', updateTotals); document.querySelectorAll('input[name="delivery"]').forEach(r=>r.addEventListener('change', updateTotals)); updateTotals();
+
+      // ensure forms are keyboard-friendly: Enter on payment triggers ignite
+      paymentForm.addEventListener('submit',(e)=>{ e.preventDefault(); igniteBtn.click(); });
+
+      // Expose open/close functions to global for debugging
+      window.checkout = { openModal, closeModal };
+    })();
+  </script>
+</body>
+</html>
