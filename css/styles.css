@@ -286,6 +286,11 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .site-footer .contributors .gh-name{font-size:0.95rem}
 .site-footer .newsletter .newsletter-row input{font-size:0.95rem}
 .site-footer .newsletter .join-order{font-size:0.95rem}
+
+/* Footer logo mark (small SVG) positioned to the left of the wordmark */
+.site-footer .logo{display:flex;align-items:center;gap:.6rem}
+.site-footer .footer-logo{width:34px;height:auto;display:block;flex:0 0 auto}
+.site-footer .logo span{letter-spacing:1px}
 .newsletter-form{display:flex;gap:1rem;max-width:480px;margin:1.5rem auto 0}
 .newsletter-form input{flex:1;padding:.75rem;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--fossil-bone);font-family:inherit}
 .newsletter-form input::placeholder{color:rgba(255,255,255,.5)}
