@@ -27,14 +27,14 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .site-header{position:sticky;top:0;background:linear-gradient(180deg,rgba(0,0,0,.6),transparent);backdrop-filter:blur(2px);z-index:40;border-bottom:1px solid rgba(200,200,200,.04)}
 .site-header.scrolled{background:linear-gradient(180deg,rgba(0,0,0,.75),rgba(0,0,0,.5));box-shadow:0 6px 18px rgba(0,0,0,.45)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem}
-.brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:500;letter-spacing:1px;color:var(--fossil-bone);text-decoration:none;display:inline-flex;align-items:center;gap:.9rem;font-size:1.05rem}
+.brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:500;letter-spacing:1px;color:var(--fossil-bone);text-decoration:none;display:inline-flex;align-items:center;gap:1rem;font-size:1.05rem}
 /* Brand logo in nav: increase visible size while preserving aspect ratio */
-/* Slightly larger by default, with a stronger increase on small screens for better tap targets */
-.brand-logo{height:56px;max-height:56px;width:auto;display:block;flex:0 0 auto}
-.brand-text{color:var(--fossil-bone);font-weight:700;line-height:1;font-size:1.12rem}
+/* Larger default for desktop, with a slightly smaller but still large size on phones */
+.brand-logo{height:72px;max-height:72px;width:auto;display:block;flex:0 0 auto}
+.brand-text{color:var(--fossil-bone);font-weight:700;line-height:1;font-size:1.5rem}
 
 @media (max-width:699px){
-  /* make the brand very clear on narrow viewports */
+  /* mobile: keep it large for tap targets but slightly smaller than desktop */
   .brand-logo{height:64px;max-height:64px}
   .brand-text{font-size:1.35rem}
   /* increase spacing a touch so larger logo/text don't look cramped */
