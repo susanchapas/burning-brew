@@ -287,6 +287,27 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .site-footer .newsletter .newsletter-row input{font-size:0.95rem}
 .site-footer .newsletter .join-order{font-size:0.95rem}
 
+/* Footer-specific subscribe button styling to match provided design */
+.site-footer .join-order{
+  padding:.75rem 1.25rem;
+  border-radius:14px;
+  font-size:1rem;
+  font-weight:700;
+  background:linear-gradient(90deg,var(--blood-red) 35%, var(--crude-brown) 100%);
+  color:#fff;
+  border:none;
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
+  text-shadow:0 1px 0 rgba(0,0,0,.25);
+  transition:transform .16s var(--motion-ease), box-shadow .16s var(--motion-ease), filter .16s var(--motion-ease);
+}
+.site-footer .join-order:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(0,0,0,.5);filter:brightness(1.02)}
+.site-footer .join-order:active{transform:translateY(1px);box-shadow:0 8px 18px rgba(0,0,0,.38)}
+
+/* On small screens make the button full-width to match design rhythm */
+@media(max-width:699px){
+  .site-footer .newsletter .join-order{width:100%;display:block}
+}
+
 /* Footer logo mark (small SVG) positioned to the left of the wordmark */
 .site-footer .logo{display:flex;align-items:flex-start;gap:.6rem}
 .site-footer .footer-logo{width:48px;max-width:48px;height:auto;display:block;flex:0 0 auto}
