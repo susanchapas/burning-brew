@@ -47,6 +47,15 @@
     form .field{margin-bottom:1.3rem}
     label{display:block;font-weight:700;font-size:.85rem;margin-bottom:.25rem}
     input[type="text"],input[type="email"],input[type="number"],textarea,select{width:100%;padding:.6rem;border-radius:6px;background:transparent;border:1px solid rgba(240,233,214,0.12);color:var(--bone);box-sizing:border-box}
+    .product-grid{display:flex;flex-direction:column;gap:.75rem;padding:.75rem;border-radius:8px;border:1px solid rgba(240,233,214,0.12);background:rgba(18,18,20,0.4)}
+    .product-grid legend{font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:1px;font-size:.95rem}
+    .product-option{display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border-radius:6px;background:rgba(15,15,17,0.6);border:1px solid transparent;transition:border-color .2s ease,background .2s ease,opacity .2s ease}
+    .product-option.disabled{opacity:.55}
+    .product-label{display:flex;align-items:center;gap:.6rem;flex:1;font-weight:600}
+    .product-label .product-name{flex:1}
+    .product-label .product-price{color:rgba(240,233,214,0.7);font-weight:600;font-size:.95rem}
+    .product-option input[type="number"]{width:80px;min-width:70px;text-align:center;background:rgba(0,0,0,0.35);border:1px solid rgba(240,233,214,0.14);color:var(--bone)}
+    .product-option input[type="number"]:disabled{opacity:.5}
     select{background:var(--panel);color:var(--bone);appearance:none;-webkit-appearance:none;-moz-appearance:none}
     select option{background:var(--panel);color:var(--bone)}
     textarea{min-height:84px}
@@ -136,20 +145,37 @@
           </div>
 
           <div class="field">
-            <label for="product">Select Product</label>
-            <select id="product" name="product" aria-describedby="productHelp">
-              <option value="single-origin">Single Origin – 1 Bag — $18.00</option>
-              <option value="dark-roast">Dark Roast — 1 Bag — $18.00</option>
-              <option value="blend">The Blend — 1 Bag — $16.00</option>
-            </select>
+            <fieldset class="product-grid" aria-describedby="productError">
+              <legend>Select Products</legend>
+              <div class="product-option" data-product="single-origin">
+                <label class="product-label">
+                  <input type="checkbox" class="product-toggle" data-product="single-origin" checked>
+                  <span class="product-name">Single Origin — 1 Bag</span>
+                  <span class="product-price">$18.00</span>
+                </label>
+                <input type="number" min="1" value="1" class="product-qty" data-product="single-origin" aria-label="Quantity for Single Origin" />
+              </div>
+              <div class="product-option disabled" data-product="dark-roast">
+                <label class="product-label">
+                  <input type="checkbox" class="product-toggle" data-product="dark-roast">
+                  <span class="product-name">Dark Roast — 1 Bag</span>
+                  <span class="product-price">$18.00</span>
+                </label>
+                <input type="number" min="1" value="1" class="product-qty" data-product="dark-roast" aria-label="Quantity for Dark Roast" disabled />
+              </div>
+              <div class="product-option disabled" data-product="blend">
+                <label class="product-label">
+                  <input type="checkbox" class="product-toggle" data-product="blend">
+                  <span class="product-name">The Blend — 1 Bag</span>
+                  <span class="product-price">$16.00</span>
+                </label>
+                <input type="number" min="1" value="1" class="product-qty" data-product="blend" aria-label="Quantity for The Blend" disabled />
+              </div>
+            </fieldset>
+            <div id="productError" class="error" aria-live="assertive"></div>
           </div>
 
           <div class="field" style="display:flex;gap:.5rem;align-items:center">
-            <div style="flex:1">
-              <label for="quantity">Quantity</label>
-              <input id="quantity" name="quantity" type="number" min="1" value="1" aria-describedby="quantityError">
-              <div id="quantityError" class="error" aria-live="assertive"></div>
-            </div>
             <fieldset style="flex:1;border:0;padding:0;margin:0">
               <legend style="font-weight:700">Delivery</legend>
               <label><input type="radio" name="delivery" value="standard" checked> Standard Burn (3–5 days)</label><br>
@@ -163,20 +189,15 @@
 
           <div style="display:flex;gap:.6rem;align-items:center;margin-top:1rem">
             <button class="ignite-btn" type="button" id="toPayment">Ignite Purchase</button>
-            <div style="margin-left:auto;color:rgba(240,233,214,0.6);font-size:.95rem">Total: <strong id="totalPrice">$23.50</strong></div>
+            <div style="margin-left:auto;color:rgba(240,233,214,0.6);font-size:.95rem">Total: <strong id="totalPrice">$0.00</strong></div>
           </div>
         </form>
       </section>
 
       <aside class="panel fuel-load" aria-labelledby="summaryTitle">
         <h2 id="summaryTitle" style="font-family:Anton,impact;color:var(--accent);">YOUR FUEL LOAD</h2>
-        <div id="itemsList">
-          <div class="fuel-item"><span>Single Origin — 1 Bag</span><span>$18.00</span></div>
-          <div class="fuel-item"><span>Shipping — Standard Burn</span><span>$4.00</span></div>
-          <div class="fuel-item totals"><span>Subtotal</span><span>$22.00</span></div>
-          <div class="fuel-item"><span>Tax</span><span>$1.50</span></div>
-          <div class="fuel-item totals"><strong>Total</strong><strong id="summaryTotal">$23.50</strong></div>
-        </div>
+        <div id="itemsList" aria-live="polite"></div>
+        <div class="fuel-item totals"><strong>Total</strong><strong id="summaryTotal">$0.00</strong></div>
         <div style="margin-top:1rem">
           <button class="ignite-btn" id="scrollToPayment">Refine & Pay</button>
         </div>
@@ -217,11 +238,7 @@
     // Minimal behavior: product autofill, progress updates, validation, modal focus trap
     (function(){
       const params = new URLSearchParams(location.search);
-      const product = params.get('product');
-      if(product){
-        const sel = document.getElementById('product');
-        for(const opt of sel.options) if(opt.value===product) opt.selected=true;
-      }
+      const productParamRaw = params.get('product');
 
       const gauge = document.getElementById('gaugeOil');
       const live = document.getElementById('liveRegion');
@@ -249,12 +266,26 @@
       function showError(el, msg){ el.classList.add('invalid'); const err = document.getElementById(el.id+'Error'); if(err) err.textContent = msg; el.setAttribute('aria-invalid','true'); }
       function clearError(el){ el.classList.remove('invalid'); const err = document.getElementById(el.id+'Error'); if(err) err.textContent = ''; el.removeAttribute('aria-invalid'); }
 
+      const productFieldset = document.querySelector('.product-grid');
+      const productError = document.getElementById('productError');
+      let productToggles = [];
+      function clearProductSelectionError(){
+        if(productError) productError.textContent='';
+        if(productFieldset) productFieldset.removeAttribute('aria-invalid');
+      }
       function validateCheckout(){
         let ok=true;
         [['fullName','Please tell the machine who you are.'],['email','Please provide a valid email.'],['address','The machine needs this info.']].forEach(([id,msg])=>{
           const el=document.getElementById(id);
           if(!el.value || (id==='email' && !/\S+@\S+\.\S+/.test(el.value))){ showError(el,msg); ok=false } else clearError(el);
         });
+        if(!productToggles.some(t=>t.checked)){
+          if(productError) productError.textContent = 'Please choose at least one product.';
+          if(productFieldset) productFieldset.setAttribute('aria-invalid','true');
+          ok=false;
+        } else {
+          clearProductSelectionError();
+        }
         return ok;
       }
 
@@ -310,16 +341,111 @@
       // Accessibility: announce stage on load
       setTimeout(()=>{ live.textContent='Stage 1: Info Extraction.' },400);
 
-      // expose basic totals update (quantity/product)
-      const productSel = document.getElementById('product');
-      const quantityEl = document.getElementById('quantity');
+      const itemsList = document.getElementById('itemsList');
       const totalPrice = document.getElementById('totalPrice');
       const summaryTotal = document.getElementById('summaryTotal');
+      const productOptions = Array.from(document.querySelectorAll('.product-option'));
+      productToggles = Array.from(document.querySelectorAll('.product-toggle'));
+      const productQtyInputs = new Map();
+      const productData = {
+        'single-origin': { name: 'Single Origin — 1 Bag', price: 18 },
+        'dark-roast': { name: 'Dark Roast — 1 Bag', price: 18 },
+        'blend': { name: 'The Blend — 1 Bag', price: 16 }
+      };
 
-      function priceOf(product){ if(product==='blend') return 16; return 18 }
-      function shippingOf(){ const d = document.querySelector('input[name="delivery"]:checked').value; return d==='rush'?8:4 }
-      function updateTotals(){ const qty=Number(quantityEl.value)||1; const p=priceOf(productSel.value); const ship=shippingOf(); const subtotal = (p*qty); const tax = +(subtotal*0.068).toFixed(2); const total = (subtotal+ship+tax).toFixed(2); totalPrice.textContent='$'+total; summaryTotal.textContent='$'+total; }
-      productSel.addEventListener('change', updateTotals); quantityEl.addEventListener('input', updateTotals); document.querySelectorAll('input[name="delivery"]').forEach(r=>r.addEventListener('change', updateTotals)); updateTotals();
+      productOptions.forEach(option=>{
+        const key = option.dataset.product;
+        const qty = option.querySelector('.product-qty');
+        if(key && qty){
+          productQtyInputs.set(key, qty);
+        }
+      });
+
+      function ensureMin(input){ if(Number(input.value) < 1) input.value = 1; }
+
+      function syncOptionState(toggle){
+        const key = toggle.dataset.product;
+        const option = toggle.closest('.product-option');
+        const qty = productQtyInputs.get(key);
+        const checked = toggle.checked;
+        if(option) option.classList.toggle('disabled', !checked);
+        if(qty){
+          qty.disabled = !checked;
+          if(checked && (!qty.value || Number(qty.value) < 1)) qty.value = 1;
+        }
+      }
+
+      function selectedProducts(){
+        return productToggles.filter(t=>t.checked).map(toggle=>{
+          const key = toggle.dataset.product;
+          const info = productData[key];
+          if(!info) return null;
+          const qty = Number(productQtyInputs.get(key)?.value) || 1;
+          return { key, qty, name: info.name, price: info.price };
+        }).filter(Boolean);
+      }
+
+      function shippingOf(){
+        const selected = document.querySelector('input[name="delivery"]:checked');
+        if(!selected) return 0;
+        return selected.value === 'rush' ? 8 : 4;
+      }
+
+      function formatCurrency(value){ return '$' + value.toFixed(2); }
+
+      function updateTotals(){
+        const items = selectedProducts();
+        let subtotal = 0;
+        const rows = [];
+        items.forEach(item=>{
+          const lineTotal = item.price * item.qty;
+          subtotal += lineTotal;
+          const plural = item.qty > 1 ? 'bags' : 'bag';
+          rows.push(`<div class="fuel-item"><span>${item.name} — ${item.qty} ${plural}</span><span>${formatCurrency(lineTotal)}</span></div>`);
+        });
+        if(items.length){
+          rows.push(`<div class="fuel-item totals"><span>Subtotal</span><span>${formatCurrency(subtotal)}</span></div>`);
+        } else {
+          rows.push('<div class="fuel-item"><span>No products selected</span><span>$0.00</span></div>');
+        }
+        const hasItems = subtotal > 0;
+        const ship = hasItems ? shippingOf() : 0;
+        const tax = hasItems ? +(subtotal * 0.068).toFixed(2) : 0;
+        const total = subtotal + ship + tax;
+        rows.push(`<div class="fuel-item"><span>Shipping</span><span>${formatCurrency(ship)}</span></div>`);
+        rows.push(`<div class="fuel-item"><span>Tax</span><span>${formatCurrency(tax)}</span></div>`);
+        itemsList.innerHTML = rows.join('');
+        totalPrice.textContent = formatCurrency(total);
+        summaryTotal.textContent = formatCurrency(total);
+      }
+
+      const productParamMap = { dark: 'dark-roast', espresso: 'blend' };
+      const productParam = productParamMap[productParamRaw] || productParamRaw;
+
+      productToggles.forEach(toggle=>{
+        const key = toggle.dataset.product;
+        syncOptionState(toggle);
+        toggle.addEventListener('change', ()=>{
+          syncOptionState(toggle);
+          if(productToggles.some(t=>t.checked)) clearProductSelectionError();
+          updateTotals();
+        });
+        const qty = productQtyInputs.get(key);
+        if(qty){
+          qty.addEventListener('input', ()=>{ ensureMin(qty); updateTotals(); });
+        }
+      });
+
+      if(productParam && productQtyInputs.has(productParam)){
+        productToggles.forEach(toggle=>{
+          const isMatch = toggle.dataset.product === productParam;
+          toggle.checked = isMatch;
+          syncOptionState(toggle);
+        });
+      }
+
+      document.querySelectorAll('input[name="delivery"]').forEach(r=>r.addEventListener('change', updateTotals));
+      updateTotals();
 
       // ensure forms are keyboard-friendly: Enter on payment triggers ignite
       paymentForm.addEventListener('submit',(e)=>{ e.preventDefault(); igniteBtn.click(); });
