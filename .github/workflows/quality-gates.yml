@@ -18,6 +18,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          
+      - name: Install linters and configs
+        run: |
+          npm init -y
+          npm i -D eslint @eslint/js globals
+          npm i -D stylelint stylelint-config-standard
+          npm i -D htmlhint
+          npm i -D jscpd
 
       - name: Check HTML
         run: npx --yes htmlhint "**/*.html" || (echo "::error ::HTML errors found" && exit 1)
