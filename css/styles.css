@@ -201,6 +201,21 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .newsletter .join-order{white-space:nowrap;padding:.6rem .8rem;border-radius:6px;background:var(--hazard-yellow);color:var(--void-black);border:none}
 .newsletter .join-order:hover{filter:brightness(.95)}
 
+/* Footer Subscribe refinement: match the prominent red gradient CTA used site-wide */
+.newsletter .join-order{
+  padding: .7rem 1.1rem;
+  border-radius:10px;
+  font-size:1.05rem;
+  font-weight:600;
+  background:linear-gradient(90deg,var(--blood-red), var(--crude-brown));
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(0,0,0,.45);
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+  transition: transform .18s var(--motion-ease), box-shadow .18s var(--motion-ease), filter .18s var(--motion-ease);
+}
+.newsletter .join-order:active{transform:translateY(1px);box-shadow:0 6px 16px rgba(0,0,0,.42)}
+.newsletter .join-order:hover{filter:brightness(.98)}
+
 /* Stack newsletter on small screens */
 @media(max-width:699px){
   .footer-inner{grid-template-columns:1fr;gap:1rem}
