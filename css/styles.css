@@ -461,9 +461,17 @@ img{max-width:100%;height:auto;display:block}
 /* Homepage: apply secondary palette accents */
 .page-root a:hover{color:var(--oxidized-teal)}
 
-/* Make small CTAs use oxidized teal / crude brown gradient on homepage */
-.page-root .btn.small{border-color:rgba(74,124,124,.12);color:var(--fossil-bone)}
-.page-root .btn.small:hover{background:linear-gradient(90deg,var(--oxidized-teal),var(--crude-brown));color:#fff;border-color:transparent}
+/* Make small CTAs use oxidized teal on homepage (Teaser card CTAs) */
+.page-root .btn.small{
+  background:var(--oxidized-teal); /* #4a7c7c */
+  border-color:var(--oxidized-teal);
+  color:#fff;
+}
+.page-root .btn.small:hover{
+  filter:brightness(.95);
+  color:#fff;
+  border-color:transparent;
+}
 
 /* Subscribe/hero CTA on homepage: use the red-brown default but switch to black on hover for legibility */
 .page-root .crude-button{background:linear-gradient(90deg,var(--blood-red),var(--crude-brown));color:#fff}
