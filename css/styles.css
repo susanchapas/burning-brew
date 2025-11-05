@@ -373,6 +373,17 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 /* Visual polish overrides */
 img{max-width:100%;height:auto;display:block}
 .hero{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:6rem 0;background-image:url('../assets/hero-desert.svg'), radial-gradient(circle at 20% 10%, rgba(255,199,44,.03), transparent 10%),linear-gradient(180deg, rgba(255,0,0,.02), rgba(0,0,0,.6));background-blend-mode:normal, overlay;position:relative;overflow:hidden}
+
+/* Decorative hero textures for homepage only */
+.page-root .hero-deco{position:absolute;pointer-events:none;z-index:1;background-repeat:no-repeat;background-position:center;background-size:contain;opacity:.09;mix-blend-mode:multiply}
+.page-root .hero-deco.hero-ring{left:4%;top:6%;width:320px;height:320px;background-image:url('../assets/coffee-ring1.svg');transform:rotate(-10deg)}
+.page-root .hero-deco.hero-splatter{right:3%;bottom:-32px;width:420px;height:420px;background-image:url('../assets/coffee-splatter1.svg');transform:rotate(6deg);opacity:.085}
+
+/* Reduce intensity on small screens so textures don't overwhelm content */
+@media(max-width:699px){
+  .page-root .hero-deco.hero-ring{width:160px;height:160px;left:6%;top:8%;opacity:.07}
+  .page-root .hero-deco.hero-splatter{width:220px;height:220px;right:6%;bottom:-18px;opacity:.06}
+}
 .card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.25);transition:transform .2s ease, box-shadow .2s ease}
 .product-card:hover{background-image:url('../assets/oil-slick.svg');background-size:cover}
 .crude-button{position:relative;overflow:hidden}
