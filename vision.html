@@ -227,11 +227,11 @@
     (function initCarousels(){
       const carousels = document.querySelectorAll('.carousel');
       carousels.forEach(carousel => {
+        const viewport = carousel.querySelector('.carousel-viewport');
         const track = carousel.querySelector('.carousel-track');
         const slides = Array.from(track.children);
         const btnPrev = carousel.querySelector('.carousel-btn.prev');
         const btnNext = carousel.querySelector('.carousel-btn.next');
-        let index = 0;
 
         function slidesToShow(){
           if(window.matchMedia('(min-width:960px)').matches) return 3;
@@ -239,35 +239,68 @@
           return 1;
         }
 
+        function clampPosition(pos, show){
+          const min = Math.floor(show/2);
+          const max = Math.max(min, slides.length - Math.ceil(show/2));
+          return Math.min(max, Math.max(min, pos));
+        }
+
+        let position = 0; // center index
+
         function update(){
+          if(!slides.length) return;
+          const show = slidesToShow();
+          position = clampPosition(position, show);
+
+          // measurements
           const gap = parseFloat(getComputedStyle(track).gap) || 0;
-          const slideWidth = slides[0].getBoundingClientRect().width;
-          const shift = (slideWidth + gap) * index;
-          track.style.transform = `translateX(${ -Math.round(shift) }px)`;
-          const maxIndex = Math.max(0, slides.length - slidesToShow());
-          btnPrev.disabled = index <= 0;
-          btnNext.disabled = index >= maxIndex;
+          const slideRect = slides[0].getBoundingClientRect();
+          const slideW = slideRect.width;
+          const viewportW = viewport.getBoundingClientRect().width;
+
+          // shift so the 'position' slide is centered in the viewport
+          const targetShift = (slideW + gap) * position - (viewportW - slideW) / 2;
+          track.style.transform = `translateX(${ -Math.round(targetShift) }px)`;
+
+          // update classes for visual emphasis
+          slides.forEach(s => s.classList.remove('center','adjacent'));
+          const center = slides[position];
+          if(center) center.classList.add('center');
+          if(slides[position - 1]) slides[position - 1].classList.add('adjacent');
+          if(slides[position + 1]) slides[position + 1].classList.add('adjacent');
+
+          // disable buttons when centered at ends
+          const minPos = Math.floor(show/2);
+          const maxPos = Math.max(minPos, slides.length - Math.ceil(show/2));
+          btnPrev.disabled = position <= minPos;
+          btnNext.disabled = position >= maxPos;
         }
 
         btnNext.addEventListener('click', ()=>{
-          const maxIndex = Math.max(0, slides.length - slidesToShow());
-          index = Math.min(index + 1, maxIndex);
+          position = clampPosition(position + 1, slidesToShow());
           update();
         });
         btnPrev.addEventListener('click', ()=>{
-          index = Math.max(0, index - 1);
+          position = clampPosition(position - 1, slidesToShow());
           update();
         });
 
+        // recompute on resize (debounced by rAF)
+        let rfid = null;
         window.addEventListener('resize', ()=>{
-          // clamp index to available range when responsive breakpoint changes
-          index = Math.min(index, Math.max(0, slides.length - slidesToShow()));
-          // small timeout to allow layout to settle
-          requestAnimationFrame(update);
+          if(rfid) cancelAnimationFrame(rfid);
+          rfid = requestAnimationFrame(()=>{
+            // clamp position within new bounds and update
+            position = clampPosition(position, slidesToShow());
+            update();
+            rfid = null;
+          });
         });
 
-        // initial
-        update();
+        // initial center should be the first 'center' index
+        position = Math.floor(slidesToShow()/2);
+        // allow images/fonts to load and layout to settle then update
+        requestAnimationFrame(()=>{ setTimeout(update, 30); });
       });
     })();
   });
