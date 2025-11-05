@@ -497,14 +497,14 @@ img{max-width:100%;height:auto;display:block}
 /* Homepage: apply secondary palette accents */
 .page-root a:hover{color:var(--oxidized-teal)}
 
-/* Make small CTAs use oxidized teal on homepage (Teaser card CTAs) */
+/* Make small CTAs use crude brown to blood red gradient on homepage (Teaser card CTAs) */
 .page-root .btn.small{
-  background:var(--oxidized-teal); /* #4a7c7c */
-  border-color:var(--oxidized-teal);
+  background:linear-gradient(90deg, #8b4513, #990000); /* crude brown to blood red */
+  border-color:transparent;
   color:#fff;
 }
 .page-root .btn.small:hover{
-  filter:brightness(.95);
+  filter:brightness(1.05);
   color:#fff;
   border-color:transparent;
 }
