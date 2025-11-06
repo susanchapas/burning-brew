@@ -1,97 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Checkout | Burning Brew — Feed the Machine</title>
-  <meta name="description" content="Complete your extraction. Power the rebellion with Burning Brew.">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#1a1a1c;
-      --panel:#2a2a2d;
-      --accent:#990000;
-      --bone:#f0e9d6;
-      --hazard:#ffc72c;
-      --max-width:900px;
-    }
-    html,body{height:100%;}
-    body{margin:0;font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--bone);background:var(--bg);-webkit-font-smoothing:antialiased;}
-    .checkout-header{position:sticky;top:0;backdrop-filter:blur(4px);background:rgba(10,10,10,0.35);border-bottom:4px solid rgba(153,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem;z-index:50}
-    .checkout-header.solid{background:var(--bg);}
-    .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--bone)}
-    .brand{font-family:"Space Grotesk",Montserrat,system-ui,sans-serif;font-weight:600;letter-spacing:1px;text-transform:uppercase;font-size:1.05rem}
-    .brand-logo{height:48px;width:auto;display:block}
-    .brand-text{font-weight:700;line-height:1}
-    @media(max-width:600px){.brand-logo{height:40px}.brand-text{font-size:.95rem}}
-    nav a{color:var(--bone);text-decoration:none;margin-left:1rem;font-weight:600}
-    nav a:focus,nav a:hover{text-decoration:underline;color:var(--accent);outline:none}
-
-    .checkout-pit{max-width:var(--max-width);margin:2rem auto;padding:1rem;box-sizing:border-box}
-
-    .extraction-level{margin:1rem 0}
-    .extraction-label{font-family:Anton,impact,serif;color:var(--accent);letter-spacing:1px}
-    .gauge{height:18px;background:linear-gradient(90deg,#0f0f10 0%, #141415 100%);border-radius:6px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.04)}
-    .gauge .oil{position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,rgba(153,0,0,0.9),rgba(255,199,44,0.6));box-shadow:inset 0 -6px 12px rgba(0,0,0,0.6);transition:width 850ms cubic-bezier(.2,.9,.2,1)}
-    .gauge .oil::after{content:"";position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,rgba(0,0,0,0.0),rgba(0,0,0,0.12));mix-blend-mode:overlay}
-    .sr-live{position: absolute;left:-9999px}
-
-    .two-col{display:grid;grid-template-columns:1fr 340px;gap:1rem}
-    @media(max-width:880px){.two-col{grid-template-columns:1fr;}.fuel-load{order:2;}}
-
-    .panel{background:rgba(42,42,45,0.8);padding:1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
-    h1.page-title{font-family:Anton,impact;letter-spacing:2px;color:var(--accent);font-size:1.6rem;margin:.2rem 0}
-    .subhead{color:var(--bone);opacity:.9;margin-bottom:1rem}
-
-    form .field{margin-bottom:1.3rem}
-    label{display:block;font-weight:700;font-size:.85rem;margin-bottom:.25rem}
-    input[type="text"],input[type="email"],input[type="number"],textarea,select{width:100%;padding:.6rem;border-radius:6px;background:transparent;border:1px solid rgba(240,233,214,0.12);color:var(--bone);box-sizing:border-box}
-    .product-grid{display:flex;flex-direction:column;gap:.75rem;padding:.75rem;border-radius:8px;border:1px solid rgba(240,233,214,0.12);background:rgba(18,18,20,0.4)}
-    .product-grid legend{font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:1px;font-size:.95rem}
-    .product-option{display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border-radius:6px;background:rgba(15,15,17,0.6);border:1px solid transparent;transition:border-color .2s ease,background .2s ease,opacity .2s ease}
-    .product-option.disabled{opacity:.55}
-    .product-label{display:flex;align-items:center;gap:.6rem;flex:1;font-weight:600}
-    .product-label .product-name{flex:1}
-    .product-label .product-price{color:rgba(240,233,214,0.7);font-weight:600;font-size:.95rem}
-    .product-option input[type="number"]{width:80px;min-width:70px;text-align:center;background:rgba(0,0,0,0.35);border:1px solid rgba(240,233,214,0.14);color:var(--bone)}
-    .product-option input[type="number"]:disabled{opacity:.5}
-    select{background:var(--panel);color:var(--bone);appearance:none;-webkit-appearance:none;-moz-appearance:none}
-    select option{background:var(--panel);color:var(--bone)}
-    textarea{min-height:84px}
-    input:focus,textarea:focus,select:focus{outline:3px solid var(--hazard);box-shadow:0 0 12px rgba(255,199,44,0.08)}
-    input[type="radio"]:focus,input[type="checkbox"]:focus{outline:none;box-shadow:none}
-    .error{color:#ffb3b3;font-size:.9rem;margin-top:.3rem}
-    .invalid{border-color:#990000}
-
-    .fuel-load{padding:1rem}
-    .fuel-item{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px dashed rgba(255,255,255,0.02)}
-    .totals{font-weight:700;margin-top:.6rem}
-
-    .ignite-btn{display:inline-block;background:var(--accent);color:var(--bone);padding:.9rem 1.2rem;border-radius:6px;border:0;font-weight:700;cursor:pointer}
-    .ignite-btn:focus{outline:3px solid var(--hazard)}
-    .ignite-btn:active{transform:translateY(1px)}
-
-    /* modal */
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:200;padding:1rem}
-    .modal[aria-hidden="false"]{display:flex}
-    .modal-card{background:rgba(10,10,10,0.96);padding:2rem;border-radius:10px;max-width:720px;color:var(--bone);text-align:center}
-    .surface-btn{margin-top:1rem;background:transparent;color:var(--hazard);border:2px solid var(--hazard);padding:.6rem 1rem;border-radius:6px}
-
-    /* subtle animations */
-    @keyframes drill-descend{0%{transform:translateY(-10px);opacity:0}100%{transform:none;opacity:1}}
-    .animate-descend{animation:drill-descend .6s ease-out}
-
-    /* mobile progress indicator */
-    .mobile-drill{display:none;margin:0 auto;width:64px;height:64px;border-radius:50%;border:6px solid rgba(255,255,255,0.04);position:relative}
-    .mobile-drill .fill{position:absolute;inset:6px;border-radius:50%;background:conic-gradient(var(--accent) 0% 0%, rgba(255,255,255,0.02) 0% 100%)}
-    @media(max-width:600px){.mobile-drill{display:block}.extraction-level{display:none}}
-
-    footer{color:rgba(240,233,214,0.5);text-align:center;margin:2rem 0}
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout — Burning Brew</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon-01.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/scripts.js"></script>
   <script defer src="js/cart.js"></script>
+  <meta name="description" content="Complete your extraction and fuel your next mission." />
 </head>
-<body>
+<body class="page-checkout">
   <header class="site-header">
     <div class="nav-inner">
   <a class="brand" href="index.html">
