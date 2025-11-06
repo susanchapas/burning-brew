@@ -387,7 +387,9 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
   box-shadow:0 18px 40px rgba(0,0,0,.38);
   transform:translateY(-3px);
 }
-.page-products .product-card .crude-button::after{
+.page-products .product-card .crude-button::after,
+.page-products .subscribe .crude-button::after,
+.page-products .newsletter .crude-button::after{
   left:0;
   top:0;
   width:100%;
@@ -401,7 +403,11 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
   transition:opacity .28s var(--motion-ease);
 }
 .page-products .product-card .crude-button:hover::after,
-.page-products .product-card .crude-button:focus-visible::after{
+.page-products .product-card .crude-button:focus-visible::after,
+.page-products .subscribe .crude-button:hover::after,
+.page-products .subscribe .crude-button:focus-visible::after,
+.page-products .newsletter .crude-button:hover::after,
+.page-products .newsletter .crude-button:focus-visible::after{
   opacity:1;
   animation:none;
 }
