@@ -217,7 +217,9 @@ function bindGlobalHandlers(){
 
 function initCartUI(){
   const icon = qs('#cart-icon');
+  const mobileIcon = qs('#mobile-cart-icon');
   if(icon) icon.addEventListener('click', (e)=>{ e.preventDefault(); toggleDropdown(); });
+  if(mobileIcon) mobileIcon.addEventListener('click', (e)=>{ e.preventDefault(); toggleDropdown(); });
   updateCartDropdown();
   wireBurnButtons();
   bindGlobalHandlers();

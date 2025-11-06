@@ -871,7 +871,9 @@ img{max-width:100%;height:auto;display:block}
   /* tighten card/grid spacing */
   .teaser-grid .grid{gap:.75rem}
   .card{padding:.85rem}
-}/* ======================================================================
+}
+
+/* ======================================================================
    Footer: global normalization
    Ensure the footer uses a single, consistent style and that any
    "join-order" / subscribe button inside the footer always uses the
@@ -944,3 +946,18 @@ img{max-width:100%;height:auto;display:block}
 .cart-toast.visible{opacity:1;transform:none}
 
 /* mobile controls container for cart and nav toggle */
+.mobile-controls {
+  display: none;
+}
+
+@media(max-width:699px){
+  .mobile-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  /* hide the desktop cart icon when mobile controls are shown */
+  #cart-icon { display: none; }
+  /* ensure mobile cart icon and toggle align vertically */
+  .mobile-controls .cart-btn, .mobile-controls .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+}
