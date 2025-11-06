@@ -5,6 +5,11 @@ coffee that defies expectations
 
 https://susanchapas.github.io/burning-brew/index.html
 
+## Created by ##
+
+Susan Chapas                            &                   Bridget McTiernan
+https://github.com/susanchapas                        https://github.com/mcbridgeee
+
 
 ## Brand Archetype, Cialdini Principles, and Competitive Research
 
@@ -12,17 +17,17 @@ Burning Brew embodies the Outlaw archetype — rebellious, raw, and honest. It r
 
 ### Cialdini’s Persuasion Principles in Action: ###
 
-    Authority: Emphasis on authentic sourcing, honest labeling, and a straightforward presentation builds credibility.
+Authority: Emphasis on authentic sourcing, honest labeling, and a straightforward presentation builds credibility.
 
-    Social Proof: Testimonials and shareable copy like “Join the Grindhouse” connect users through identity.
+Social Proof: Testimonials and shareable copy like “Join the Grindhouse” connect users through identity.
 
-    Scarcity: Limited roasts and exclusive blends create a sense of urgency.
+Scarcity: Limited roasts and exclusive blends create a sense of urgency.
 
-    Commitment & Consistency: Returning customers can join a subscription (“The Fossil Order”) that reinforces belonging.
+Commitment & Consistency: Returning customers can join a subscription (“The Fossil Order”) that reinforces belonging.
 
-    Reciprocity: Visitors receive value first — through guides, brewing tips, or rewards — before being asked to buy.
+Reciprocity: Visitors receive value first — through guides, brewing tips, or rewards — before being asked to buy.
 
-    Unity: Language like “We praise the grind” invites alignment with a shared mindset, not just a product.
+Unity: Language like “We praise the grind” invites alignment with a shared mindset, not just a product.
 
 ### Competitive Landscape: ###
 
@@ -58,3 +63,4 @@ The build command will create `dist/js/scripts.min.js` and `dist/css/styles.min.
 
 - `npm start` runs `live-server` for auto-reload during development.
 - `npm run build` creates a small `dist/` directory with minified assets.
+
