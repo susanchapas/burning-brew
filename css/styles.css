@@ -708,6 +708,28 @@ img{max-width:100%;height:auto;display:block}
   box-shadow:0 26px 46px rgba(0,0,0,.38);
 }
 
+.page-contact .contact-hero .crude-button,
+.page-contact .contact-form .crude-button,
+.page-contact .newsletter .crude-button{
+  position:relative;
+  box-shadow:0 12px 28px rgba(0,0,0,.28);
+  transition:transform .32s var(--motion-ease), box-shadow .32s var(--motion-ease), filter .32s var(--motion-ease);
+}
+.page-contact .contact-hero .crude-button::after,
+.page-contact .contact-form .crude-button::after,
+.page-contact .newsletter .crude-button::after{
+  display:none;
+}
+.page-contact .contact-hero .crude-button:hover,
+.page-contact .contact-hero .crude-button:focus-visible,
+.page-contact .contact-form .crude-button:hover,
+.page-contact .contact-form .crude-button:focus-visible,
+.page-contact .newsletter .crude-button:hover,
+.page-contact .newsletter .crude-button:focus-visible{
+  transform:translateY(-4px) scale(1.05);
+  box-shadow:0 26px 46px rgba(0,0,0,.38);
+}
+
 /* Subscribe/hero CTA on homepage: use the red-brown default but switch to black on hover for legibility */
 .page-root .crude-button{background:linear-gradient(90deg,var(--blood-red),var(--crude-brown));color:#fff}
 .page-root .crude-button:hover{
