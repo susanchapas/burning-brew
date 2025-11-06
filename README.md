@@ -1,7 +1,7 @@
 # burning-brew
 coffee that defies expectations
 
-## Live Site
+## ✨ Live Site ✨
 
 https://susanchapas.github.io/burning-brew/index.html
 
@@ -41,6 +41,16 @@ They’ve outgrown the polished “latte art” scene and want something more gr
 
 ---
 
+## Tech Stack
+- **HTML5, CSS3, JavaScript (ES6)**
+- **Node.js** for development tooling
+- **Prettier** for code formatting
+- **ESLint (Airbnb config)** for static code analysis
+- **WCAG 2.1 AA** accessibility standards
+- **Manual Lighthouse testing** for performance and accessibility scoring
+
+---
+
 ## Quality Gates  
 To ensure code quality, maintainability, accessibility and performance, the following gates are enforced:
 
@@ -54,22 +64,6 @@ To ensure code quality, maintainability, accessibility and performance, the foll
    - Script: `npm run lint`  
    - Gate passes only if no linting errors (warnings allowed or configurable) remain.  
    - Typical rules enforced: no unused vars, no console logs in production code, consistent quotes/semi as configured.
-
-3. **Accessibility Gate**  
-   - Tool: axe-core CLI or similar automated audits  
-   - Script: `npm run test:a11y`  
-   - Gate requires no “critical” accessibility violations (focus order, color contrast minimum 4.5:1, alt text, aria labels).  
-   - All interactive elements keyboard accessible, focus states visible.
-
-4. **Performance/SEO Gate**  
-   - Tool: Lighthouse (or similar) in CI  
-   - Requirement: e.g., Performance ≥ 80, Accessibility ≥ 90, Best Practices ≥ 85, SEO ≥ 90 (customize as you like)  
-   - Script: `npm run test:ci` to run build + audit. Gate passes only if thresholds met.
-
-5. **Pre-commit Git Hook Gate**  
-   - Tool: Husky + lint-staged  
-   - Hook runs: `npm run lint && npm run check-format` before commit.  
-   - Prevents unformatted, lint-errors code from being committed to repository.
 
 ---
 
