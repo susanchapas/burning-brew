@@ -396,7 +396,9 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
   height:100%;
   transform:none;
   opacity:0;
-  background:rgba(153,0,0,.45);
+  background:linear-gradient(120deg, rgba(153,0,0,.65) 10%, rgba(204,30,30,.55) 45%, rgba(255,120,120,.5) 55%, rgba(153,0,0,.65) 90%);
+  background-size:200% 140%;
+  background-position:0% 50%;
   filter:none;
   animation:none;
   pointer-events:none;
@@ -409,7 +411,7 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
 .page-products .newsletter .crude-button:hover::after,
 .page-products .newsletter .crude-button:focus-visible::after{
   opacity:1;
-  animation:none;
+  animation:crudeSweep 1.4s ease-in-out infinite alternate;
 }
 .product-card h2{margin:0;font-family:"Space Grotesk",system-ui,sans-serif;font-size:1.35rem;letter-spacing:.5px}
 .product-card .muted{margin:0;color:rgba(230,230,230,.82)}
@@ -646,10 +648,59 @@ img{max-width:100%;height:auto;display:block}
   color:#fff;
   border-color:transparent;
 }
+.page-root main .btn.small,
+.page-root main .crude-button{
+  position:relative;
+  transition:transform .28s var(--motion-ease), box-shadow .28s var(--motion-ease), filter .28s var(--motion-ease);
+  box-shadow:0 6px 16px rgba(0,0,0,.25);
+}
+.page-root main .btn.small::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(120deg, rgba(153,0,0,.65) 10%, rgba(204,30,30,.55) 45%, rgba(255,120,120,.5) 55%, rgba(153,0,0,.65) 90%);
+  background-size:200% 140%;
+  background-position:0% 50%;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .28s var(--motion-ease);
+}
+.page-root main .btn.small:hover::after,
+.page-root main .btn.small:focus-visible::after{
+  opacity:1;
+  animation:crudeSweep 1.4s ease-in-out infinite alternate;
+}
+.page-root main .crude-button::after{
+  display:none;
+}
+.page-root main .btn.small:hover,
+.page-root main .btn.small:focus-visible{
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 16px 32px rgba(0,0,0,.32);
+}
+.page-root .hero .crude-button,
+.page-root .subscribe .crude-button{
+  box-shadow:0 12px 28px rgba(0,0,0,.28);
+  transition:transform .32s var(--motion-ease), box-shadow .32s var(--motion-ease), filter .32s var(--motion-ease);
+}
+.page-root .hero .crude-button:hover,
+.page-root .hero .crude-button:focus-visible,
+.page-root .subscribe .crude-button:hover,
+.page-root .subscribe .crude-button:focus-visible{
+  transform:translateY(-4px) scale(1.05);
+  box-shadow:0 26px 46px rgba(0,0,0,.38);
+}
 
 /* Subscribe/hero CTA on homepage: use the red-brown default but switch to black on hover for legibility */
 .page-root .crude-button{background:linear-gradient(90deg,var(--blood-red),var(--crude-brown));color:#fff}
-.page-root .crude-button:hover{background:var(--void-black);color:#fff;border-color:transparent;filter:none}
+.page-root .crude-button:hover{
+  color:#fff;
+  border-color:transparent;
+  filter:brightness(1.05);
+}
 
 /* Teaser cards get a subtle teal accent on the left to tie the palette together */
 .page-root .teaser-grid .card{border-left:4px solid transparent}
@@ -661,7 +712,7 @@ img{max-width:100%;height:auto;display:block}
 /* Newsletter join button in footer on homepage (if visible) uses teal accent */
 .page-root .newsletter .join-order{background:linear-gradient(90deg,var(--oxidized-teal),var(--hazard-yellow));color:var(--void-black)}
 .card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.25);transition:transform .2s ease, box-shadow .2s ease}
-.product-card:hover{background-image:url('../assets/oil-slick.svg');background-size:cover}
+.product-card:hover{background-image:none}
 .crude-button{position:relative;overflow:hidden}
 .crude-button::after{content:"";position:absolute;left:50%;top:-100%;width:8px;height:140%;background:var(--blood-red);filter:blur(0.5px);transform:translateX(-50%);opacity:.35}
 .crude-button:hover::after{animation:drip 1.4s ease forwards}
