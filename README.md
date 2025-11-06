@@ -7,13 +7,9 @@ https://susanchapas.github.io/burning-brew/index.html
 
 ## Created by ##
 
-Susan Chapas                       
-https://github.com/susanchapas 
-
+Susan Chapas - https://github.com/susanchapas 
 &
-
-Bridget McTiernan
-https://github.com/mcbridgeee
+Bridget McTiernan - https://github.com/mcbridgeee
 
 ## Brand Archetype, Cialdini Principles, and Competitive Research
 
