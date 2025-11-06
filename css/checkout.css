@@ -1,0 +1,302 @@
+/* ======================================================================
+   Checkout Page — Burning Brew
+   ====================================================================== */
+
+:root {
+  --accent: var(--hazard-yellow);
+  --panel-bg: rgba(18, 18, 20, 0.8);
+  --panel-border: rgba(255, 255, 255, 0.06);
+  --field-bg: rgba(255, 255, 255, 0.04);
+  --field-border: rgba(255, 255, 255, 0.12);
+  --error-red: #d43939;
+}
+
+.page-checkout {
+  background: var(--void-black);
+  color: var(--fossil-bone);
+}
+
+.checkout-pit {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Extraction Level Gauge */
+.extraction-level {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--card-radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.extraction-label {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.subhead {
+  color: var(--steel-grey);
+  margin-top: 0.25rem;
+}
+
+.gauge {
+  width: 100%;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  margin-top: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.oil {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 6px;
+  transition: width 0.5s var(--motion-ease);
+}
+
+/* Two-column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 800px) {
+  .two-col {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* Panels */
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+}
+
+.page-title {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--fossil-bone);
+  margin: 0 0 0.5rem;
+}
+
+/* Form Fields */
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.field input[type="text"],
+.field input[type="email"],
+.field textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 6px;
+  color: var(--fossil-bone);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(240, 233, 214, 0.5);
+}
+
+.field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.error {
+  color: var(--error-red);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  min-height: 1em;
+}
+
+input.invalid,
+textarea.invalid {
+  border-color: var(--error-red);
+}
+
+/* Product Selection */
+.product-grid {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-grid legend {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.product-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease;
+}
+
+.product-option:not(.disabled):hover {
+    background-color: rgba(255,255,255,0.04);
+}
+
+.product-label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.product-name {
+  flex: 1;
+}
+
+.product-price {
+  font-weight: 700;
+}
+
+.product-qty {
+  width: 60px;
+  padding: 0.5rem;
+  text-align: center;
+  background: var(--field-bg);
+  border: 1px solid var(--field-border);
+  border-radius: 4px;
+  color: var(--fossil-bone);
+}
+
+.product-option.disabled {
+  opacity: 0.5;
+  color: var(--steel-grey);
+}
+
+.product-option.disabled .product-label {
+  cursor: default;
+}
+
+
+/* Ignite Button */
+.ignite-btn {
+  background: linear-gradient(90deg, var(--blood-red), var(--crude-brown));
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.85rem 1.5rem;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.ignite-btn:hover {
+  filter: brightness(1.1);
+}
+
+.ignite-btn:disabled {
+    background: var(--steel-grey);
+    cursor: not-allowed;
+    filter: none;
+}
+
+/* Fuel Load / Summary */
+.fuel-load h2 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.fuel-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fuel-item:last-child {
+    border-bottom: none;
+}
+
+.fuel-item.totals {
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--panel-border);
+    margin-top: 0.5rem;
+}
+
+#scrollToPayment {
+    width: 100%;
+}
+
+/* Refining Energy / Payment */
+.refining-energy h2 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  background: var(--void-black);
+  border: 1px solid var(--accent);
+  border-radius: var(--card-radius);
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.modal-card h2 {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    color: var(--hazard-yellow);
+    margin: 0;
+}
+
+.surface-btn {
+    margin-top: 1.5rem;
+    background: var(--fossil-bone);
+    color: var(--void-black);
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
