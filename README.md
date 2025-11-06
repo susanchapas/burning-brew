@@ -73,12 +73,6 @@ To ensure code quality, maintainability, accessibility and performance, the foll
 
 ---
 
-## Installation & Development  
-1. Clone the repository:  
-   ```bash
-   git clone https://github.com/SusanChapas/burning-brew.git
-   cd burning-brew
-
 ## Development
 
 Serve the site locally with auto-reload:
