@@ -290,7 +290,6 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
   width:100%;
   aspect-ratio:16/10;
   border-radius:calc(var(--card-radius) - 4px);
-  background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.22),rgba(0,0,0,.55) 58%);
   border:1px solid rgba(255,255,255,.12);
   box-shadow:0 10px 28px rgba(0,0,0,.3);
   position:relative;
@@ -304,11 +303,37 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
   background:linear-gradient(140deg,rgba(255,255,255,.16),transparent 55%);
   mix-blend-mode:screen;
   pointer-events:none;
+  z-index:2;
 }
-.teaser-grid .card:hover .card-photo-slot{
+.teaser-grid .card .card-photo{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  transition:opacity .35s var(--motion-ease), filter .35s var(--motion-ease);
+  z-index:1;
+}
+.teaser-grid .card .card-photo--base{
+  opacity:1;
+  filter:brightness(.78);
+}
+.teaser-grid .card .card-photo--hover{
+  opacity:0;
+}
+.teaser-grid .card:hover .card-photo-slot,
+.teaser-grid .card:focus-within .card-photo-slot{
   transform:translateY(-3px);
-  filter:brightness(1.1);
+  filter:brightness(1.08);
   border-color:rgba(255,255,255,.3);
+}
+.teaser-grid .card:hover .card-photo--base,
+.teaser-grid .card:focus-within .card-photo--base{opacity:0}
+.teaser-grid .card:hover .card-photo--hover,
+.teaser-grid .card:focus-within .card-photo--hover{
+  opacity:1;
+  filter:brightness(1);
 }
 .muted{color:var(--steel-grey)}
 
