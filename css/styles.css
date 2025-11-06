@@ -29,6 +29,9 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
 .site-header{position:sticky;top:0;background:linear-gradient(180deg,rgba(0,0,0,.6),transparent);backdrop-filter:blur(2px);z-index:40;border-bottom:1px solid rgba(200,200,200,.04)}
 .site-header.scrolled{background:linear-gradient(180deg,rgba(0,0,0,.75),rgba(0,0,0,.5));box-shadow:0 6px 18px rgba(0,0,0,.45)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem}
+#nav-inner{position:relative}
+/* Ensure nav-inner is positioned for absolute dropdown placement */
+.nav-inner{position:relative}
 .brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:500;letter-spacing:1px;color:var(--fossil-bone);text-decoration:none;display:inline-flex;align-items:center;gap:1rem;font-size:1.05rem}
 /* Brand logo in nav: increase visible size while preserving aspect ratio */
 /* Larger default for desktop, with a slightly smaller but still large size on phones */
@@ -42,7 +45,8 @@ a:focus-visible{outline:3px dashed var(--hazard-yellow);outline-offset:3px}
   /* increase spacing a touch so larger logo/text don't look cramped */
   .nav-inner{gap:1rem}
 }
-.site-nav{display:flex;gap:1rem}
+.site-nav{display:flex;gap:1rem;align-items:center}
+.site-nav .cart-btn{margin-left:.5rem;order:999}
 .site-nav a{color:var(--steel-grey);text-decoration:none;padding:.25rem .25rem;border-bottom:2px solid transparent;transition:color .15s ease,border-color .15s ease}
 .site-nav a.active{color:var(--hazard-yellow);border-bottom-color:var(--hazard-yellow)}
 .site-nav a:hover{color:var(--blood-red);border-bottom-color:var(--blood-red)}
@@ -58,7 +62,7 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
 
 @media(max-width:699px){
   /* ensure cart remains outside the collapsing nav; place between brand and toggle in markup */
-  .cart-btn{order:1;flex:0 0 auto}
+  .cart-btn{order:1;flex:0 0 auto;position:absolute;right:1rem;top:0.6rem}
   .brand{order:0}
   .nav-toggle{order:2}
   .site-nav{order:3}
