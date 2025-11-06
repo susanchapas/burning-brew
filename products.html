@@ -8,6 +8,7 @@
   <link rel="icon" href="assets/favicon-01.svg">
   <link rel="stylesheet" href="css/styles.css">
   <script defer src="js/scripts.js"></script>
+  <script defer src="js/cart.js"></script>
   <meta name="description" content="The Grind — raw, technical coffee offerings from Burning Brew." />
 </head>
 <body class="page-products">
@@ -23,9 +24,10 @@
   <a href="vision.html">Vision</a>
   <a href="contact.html">Contact</a>
       </nav>
-  <a href="checkoutflow.html" class="cart-btn" aria-label="View cart">
+  <button id="cart-icon" class="cart-btn" aria-label="View shopping cart" aria-haspopup="true" aria-expanded="false">
     <img src="assets/shopping-cart.svg" alt="Shopping cart" />
-  </a>
+  </button>
+  <div id="cart-dropdown" class="cart-dropdown hidden" aria-live="polite" aria-hidden="true"></div>
     </div>
   </header>
 
@@ -46,7 +48,7 @@
           <li><strong style="color: #ffc72c;">Taste:</strong> Charcoal, Smoke, Bittersweet Amber</li>
         </ul>
         <div class="actions">
-          <button class="btn crude-button">Burn Deeper</button>
+          <button class="btn crude-button burn-btn" data-product="darkRoast" aria-label="Add Dark Roast to cart">Burn Deeper</button>
         </div>
       </article>
 
@@ -60,7 +62,7 @@
           <li><strong style="color: #ffc72c;">Taste:</strong> Earth, Smoke, Late-Bloom Spice</li>
         </ul>
         <div class="actions">
-          <button class="btn crude-button">Burn Deeper</button>
+          <button class="btn crude-button burn-btn" data-product="singleOrigin" aria-label="Add Single Origin to cart">Burn Deeper</button>
         </div>
       </article>
 
@@ -74,7 +76,7 @@
           <li><strong style="color: #ffc72c;">Taste:</strong> Concentrated tar, salted caramel</li>
         </ul>
         <div class="actions">
-          <button class="btn crude-button">Burn Deeper</button>
+          <button class="btn crude-button burn-btn" data-product="theBlend" aria-label="Add The Blend to cart">Burn Deeper</button>
         </div>
       </article>
     </section>

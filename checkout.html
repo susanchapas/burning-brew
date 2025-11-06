@@ -89,6 +89,7 @@
 
     footer{color:rgba(240,233,214,0.5);text-align:center;margin:2rem 0}
   </style>
+  <script defer src="js/cart.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -103,9 +104,10 @@
   <a href="vision.html">Vision</a>
   <a href="contact.html">Contact</a>
       </nav>
-  <a href="checkoutflow.html" class="cart-btn" aria-label="View cart">
+  <button id="cart-icon" class="cart-btn" aria-label="View shopping cart" aria-haspopup="true" aria-expanded="false">
     <img src="assets/shopping-cart.svg" alt="Shopping cart" />
-  </a>
+  </button>
+  <div id="cart-dropdown" class="cart-dropdown hidden" aria-live="polite" aria-hidden="true"></div>
     </div>
   </header>
 

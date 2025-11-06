@@ -10,6 +10,7 @@
   <link rel="icon" href="assets/favicon-01.svg">
   <link rel="stylesheet" href="css/styles.css">
   <script defer src="js/scripts.js"></script>
+  <script defer src="js/cart.js"></script>
 </head>
 <body class="page-root">
   <header class="site-header">
@@ -24,9 +25,10 @@
   <a href="vision.html">Vision</a>
   <a href="contact.html">Contact</a>
       </nav>
-  <a href="checkoutflow.html" class="cart-btn" aria-label="View cart">
+  <button id="cart-icon" class="cart-btn" aria-label="View shopping cart" aria-haspopup="true" aria-expanded="false">
     <img src="assets/shopping-cart.svg" alt="Shopping cart" />
-  </a>
+  </button>
+  <div id="cart-dropdown" class="cart-dropdown hidden" aria-live="polite" aria-hidden="true"></div>
     </div>
   </header>
 
