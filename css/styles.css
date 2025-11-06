@@ -62,9 +62,9 @@ nav a:hover, .site-nav a:hover, .nav-inner a:hover { color: var(--blood-red) !im
 
 @media(max-width:699px){
   /* ensure cart remains outside the collapsing nav; place between brand and toggle in markup */
-  .cart-btn{order:1;flex:0 0 auto;position:absolute;right:1rem;top:0.6rem}
+  .cart-btn{order: 2;}
   .brand{order:0}
-  .nav-toggle{order:2}
+  .nav-toggle{order:1}
   .site-nav{order:3}
 }
 
@@ -857,27 +857,3 @@ img{max-width:100%;height:auto;display:block}
 .cart-toast.visible{opacity:1;transform:none}
 
 /* mobile controls container for cart and nav toggle */
-.mobile-controls {
-  display: none;
-}
-
-@media(max-width:699px){
-  .mobile-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .cart-btn {
-    order: 1;
-    position: static;
-  }
-  .nav-toggle {
-    order: 2;
-  }
-  .site-nav {
-    order: 3;
-  }
-  .brand {
-    order: 0;
-  }
-}
