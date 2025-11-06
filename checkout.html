@@ -38,22 +38,6 @@
   </header>
 
   <main class="checkout-pit" id="main">
-    <div class="mobile-drill" aria-hidden="true"><div class="fill" id="mobileFill"></div></div>
-
-    <section class="extraction-level" aria-labelledby="extractionLabel">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div id="extractionLabel" class="extraction-label">EXTRACTION LEVEL</div>
-          <div class="subhead">Track the drill — progress your extraction.</div>
-        </div>
-        <div aria-hidden="true" style="font-weight:700;color:var(--hazard)">Stage 1 of 3</div>
-      </div>
-      <div class="gauge" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20" aria-label="Extraction progress">
-        <div class="oil" id="gaugeOil" style="width:20%"></div>
-      </div>
-      <div class="sr-live" aria-live="polite" id="liveRegion"></div>
-    </section>
-
     <div class="two-col">
       <section class="panel feed-the-machine" aria-labelledby="formTitle">
         <h1 id="formTitle" class="page-title animate-descend">FEED THE MACHINE</h1>
@@ -179,19 +163,6 @@
       const params = new URLSearchParams(location.search);
       const productParamRaw = params.get('product');
 
-      const gauge = document.getElementById('gaugeOil');
-      const live = document.getElementById('liveRegion');
-      const mobileFill = document.getElementById('mobileFill');
-
-      function setStage(n){
-        const pct = n===1?20:(n===2?60:100);
-        gauge.style.width = pct + '%';
-        gauge.parentElement.setAttribute('aria-valuenow', pct);
-        live.textContent = 'Extraction progress: stage '+n+' of 3';
-        if(mobileFill) mobileFill.style.background = 'conic-gradient(var(--accent) 0% '+pct+'%, rgba(255,255,255,0.02) '+pct+'% 100%)';
-      }
-      setStage(1);
-
   // Header solid on scroll — select the site header element used across pages
   const header = document.querySelector('.site-header');
   window.addEventListener('scroll', ()=>{ if(!header) return; if(window.scrollY>10) header.classList.add('solid'); else header.classList.remove('solid'); });
@@ -217,10 +188,9 @@
       toPayment.addEventListener('click', ()=>{
         if(!validateCheckout()) return; // stay on form
         // move to payment
-        setStage(2);
         document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'});
       });
-      scrollToPayment.addEventListener('click', ()=>{ document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'}); setStage(2); });
+      scrollToPayment.addEventListener('click', ()=>{ document.getElementById('paymentSection').scrollIntoView({behavior:'smooth'}); });
 
       // Payment handling (simulation)
       const igniteBtn = document.getElementById('igniteTransaction');
@@ -239,7 +209,6 @@
       igniteBtn.addEventListener('click', ()=>{
         if(!validatePayment()) return;
         igniteBtn.disabled=true; igniteBtn.textContent='Processing...';
-        setStage(3);
         // small simulated animation delay
         setTimeout(()=>{
           openModal(); igniteBtn.disabled=false; igniteBtn.textContent='Ignite Transaction';
@@ -263,8 +232,6 @@
       modalReturn.addEventListener('click', ()=>{ closeModal(); window.location.href='index.html'; });
       modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModal(); });
 
-      // Accessibility: announce stage on load
-      setTimeout(()=>{ live.textContent='Stage 1: Info Extraction.' },400);
 
       const itemsList = document.getElementById('itemsList');
       const totalPrice = document.getElementById('totalPrice');

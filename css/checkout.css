@@ -22,45 +22,6 @@
   padding: 1rem;
 }
 
-/* Extraction Level Gauge */
-.extraction-level {
-  background: var(--panel-bg);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--card-radius);
-  padding: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.extraction-label {
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--accent);
-  text-transform: uppercase;
-}
-
-.subhead {
-  color: var(--steel-grey);
-  margin-top: 0.25rem;
-}
-
-.gauge {
-  width: 100%;
-  height: 12px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  margin-top: 1rem;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.oil {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 6px;
-  transition: width 0.5s var(--motion-ease);
-}
-
 /* Two-column layout */
 .two-col {
   display: grid;
