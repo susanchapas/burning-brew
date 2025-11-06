@@ -39,6 +39,46 @@ Burning Brew targets urban 20–35-year-olds who are independent, ambitious, and
 
 They’ve outgrown the polished “latte art” scene and want something more grounded: real caffeine, real attitude, no sugarcoating — literally or figuratively.
 
+---
+
+## Quality Gates  
+To ensure code quality, maintainability, accessibility and performance, the following gates are enforced:
+
+1. **Code Formatting Gate**  
+   - Tool: Prettier  
+   - Script: `npm run check-format`  
+   - Gate passes only if all files adhere to formatting rules (no changes flagged by Prettier).
+
+2. **Linting Gate**  
+   - Tool: ESLint with Airbnb base configuration  
+   - Script: `npm run lint`  
+   - Gate passes only if no linting errors (warnings allowed or configurable) remain.  
+   - Typical rules enforced: no unused vars, no console logs in production code, consistent quotes/semi as configured.
+
+3. **Accessibility Gate**  
+   - Tool: axe-core CLI or similar automated audits  
+   - Script: `npm run test:a11y`  
+   - Gate requires no “critical” accessibility violations (focus order, color contrast minimum 4.5:1, alt text, aria labels).  
+   - All interactive elements keyboard accessible, focus states visible.
+
+4. **Performance/SEO Gate**  
+   - Tool: Lighthouse (or similar) in CI  
+   - Requirement: e.g., Performance ≥ 80, Accessibility ≥ 90, Best Practices ≥ 85, SEO ≥ 90 (customize as you like)  
+   - Script: `npm run test:ci` to run build + audit. Gate passes only if thresholds met.
+
+5. **Pre-commit Git Hook Gate**  
+   - Tool: Husky + lint-staged  
+   - Hook runs: `npm run lint && npm run check-format` before commit.  
+   - Prevents unformatted, lint-errors code from being committed to repository.
+
+---
+
+## Installation & Development  
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/SusanChapas/burning-brew.git
+   cd burning-brew
+
 ## Development
 
 Serve the site locally with auto-reload:
@@ -63,4 +103,12 @@ The build command will create `dist/js/scripts.min.js` and `dist/css/styles.min.
 
 - `npm start` runs `live-server` for auto-reload during development.
 - `npm run build` creates a small `dist/` directory with minified assets.
+
+## Final Words
+
+This project isn’t just another coffee site. It’s a fuel system for the reckless, the doers, the ones who refuse comfort.
+If you’re here, you’re not in for serenity. You’re here for heat, grit, ignition.
+
+Drink slow. Burn fast.
+Join the fossil order.
 
